@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 
@@ -23,8 +22,6 @@ func AddRound(c *gin.Context) {
 		"round": round,
 		"code":  status,
 	})
-
-	return
 }
 
 func GetRound(c *gin.Context) {
@@ -36,9 +33,7 @@ func GetRound(c *gin.Context) {
 		log.Println(err)
 	}
 
-	fmt.Printf("%d", roundID)
-
-	round, err = db.GetRoundByID(int64(roundID))
+	round, err = db.GetRoundByID(roundID)
 
 	c.JSON(200, gin.H{
 		"round": round,

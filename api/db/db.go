@@ -41,7 +41,7 @@ func NewRound(round models.Round) (int, error) {
 	return 200, nil
 }
 
-func GetRoundByID(roundID int64) (models.Round, error) {
+func GetRoundByID(roundID int) (models.Round, error) {
 	var round models.Round
 
 	db, err := InitDB()
