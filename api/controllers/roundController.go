@@ -66,11 +66,27 @@ func UpdateRound(c *gin.Context) {
 	c.ShouldBindJSON(&updateInfo)
 
 	status, err := db.UpdateRound(roundID, updateInfo)
-	if err := nil {
+	if err != nil {
 		log.Println(err)
 	}
 	c.JSON(status, gin.H{
 		"code": status,
 	})
 
+}
+
+func DeleteRound(c *gin.Context) {
+	roundID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	status, err := db.DeleteRound(roundID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	c.JSON(status, gin.H{
+		"code": status,
+	})
 }

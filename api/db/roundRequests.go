@@ -78,3 +78,18 @@ func UpdateRound(roundID int, updateInfo map[string]interface{}) (int, error) {
 	return 200, nil
 
 }
+
+func DeleteRound(roundID int) (int, error) {
+	db, err := InitDB()
+	if err != nil {
+		log.Println(err)
+	}
+	queryString := `DELETE FROM round WHERE ID = ($1)`
+	err = db.QueryRow(queryString, roundID).Err()
+	if err != nil {
+		fmt.Printf("%s", err)
+		return 400, err
+	}
+	defer db.Close()
+	return 200, nil
+}
