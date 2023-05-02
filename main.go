@@ -9,7 +9,6 @@ func main() {
 	r := gin.Default()
 	r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
-	r.GET("/user/:id", controllers.GetUser)
 
 	r.POST("/newround", controllers.AddRound)
 	r.GET("/rounds", controllers.GetRounds)
@@ -17,6 +16,7 @@ func main() {
 	r.GET("/round/:id", controllers.GetRound)
 	r.DELETE("/round/:id", controllers.DeleteRound)
 
+	r.GET("/user/:id", controllers.GetUser)
 	r.POST("/newuser", controllers.NewUser)
 
 	r.Run() // listen and serve on 0.0.0.0:8080

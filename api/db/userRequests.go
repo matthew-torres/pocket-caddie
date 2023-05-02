@@ -23,3 +23,23 @@ func NewUser(user models.User) (int, error) {
 	defer db.Close()
 	return 200, nil
 }
+
+func GetUserByID(userID int) (models.User, error) {
+	var user models.User
+
+	db, err := InitDB()
+	if err != nil {
+		log.Println(err)
+	}
+
+	// prob can make a view and view model for users
+	queryString := `SELECT uid, firstname, lastname, email FROM users WHERE uid = ($1)`
+	err = db.QueryRow(queryString, userID).Scan(&user.UID, &user.Firstname, &user.Lastname, &user.Email)
+	if err != nil {
+		fmt.Printf("%s", err)
+		return user, err
+	}
+
+	defer db.Close()
+	return user, nil
+}
