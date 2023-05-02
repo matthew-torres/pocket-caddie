@@ -17,6 +17,8 @@ func main() {
 	r.GET("/round/:id", controllers.GetRound)
 	r.DELETE("/round/:id", controllers.DeleteRound)
 
+	r.POST("/newuser", controllers.NewUser)
+
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 
