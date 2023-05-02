@@ -1,19 +1,29 @@
 package controllers
 
 import (
+	"database/sql"
 	"log"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matthew-torres/pocket-caddie/api/db"
+	"github.com/matthew-torres/pocket-caddie/api/db_queries"
 	"github.com/matthew-torres/pocket-caddie/api/models"
 )
 
-func AddRound(c *gin.Context) {
+type RoundController struct {
+	rRequests *db_queries.RoundRequests
+}
+
+func (c *RoundController) Init(db *sql.DB) {
+	c.rRequests = &db_queries.RoundRequests{}
+	c.rRequests.Init(db)
+}
+
+func (d *RoundController) AddRound(c *gin.Context) {
 	var round models.Round
 	c.ShouldBindJSON(&round)
 
-	status, err := db.NewRound(round)
+	status, err := d.rRequests.NewRound(round)
 	if err != nil {
 		log.Println(err)
 	}
@@ -24,7 +34,7 @@ func AddRound(c *gin.Context) {
 	})
 }
 
-func GetRound(c *gin.Context) {
+func (d *RoundController) GetRound(c *gin.Context) {
 
 	var round models.Round
 
@@ -33,7 +43,7 @@ func GetRound(c *gin.Context) {
 		log.Println(err)
 	}
 
-	round, err = db.GetRoundByID(roundID)
+	round, err = d.rRequests.GetRoundByID(roundID)
 	if err != nil {
 		log.Println(err)
 	}
@@ -43,11 +53,11 @@ func GetRound(c *gin.Context) {
 	})
 }
 
-func GetRounds(c *gin.Context) {
+func (d *RoundController) GetRounds(c *gin.Context) {
 
 	var rounds []models.Round
 
-	rounds, err := db.GetAllRounds()
+	rounds, err := d.rRequests.GetAllRounds()
 	if err != nil {
 		log.Println(err)
 	}
@@ -57,7 +67,7 @@ func GetRounds(c *gin.Context) {
 	})
 }
 
-func UpdateRound(c *gin.Context) {
+func (d *RoundController) UpdateRound(c *gin.Context) {
 	var updateInfo map[string]interface{}
 	roundID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -65,7 +75,7 @@ func UpdateRound(c *gin.Context) {
 	}
 	c.ShouldBindJSON(&updateInfo)
 
-	status, err := db.UpdateRound(roundID, updateInfo)
+	status, err := d.rRequests.UpdateRound(roundID, updateInfo)
 	if err != nil {
 		log.Println(err)
 	}
@@ -75,13 +85,13 @@ func UpdateRound(c *gin.Context) {
 
 }
 
-func DeleteRound(c *gin.Context) {
+func (d *RoundController) DeleteRound(c *gin.Context) {
 	roundID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		log.Println(err)
 	}
 
-	status, err := db.DeleteRound(roundID)
+	status, err := d.rRequests.DeleteRound(roundID)
 	if err != nil {
 		log.Println(err)
 	}

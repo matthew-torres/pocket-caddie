@@ -1,10 +1,11 @@
-package db
+package db_queries
 
 import (
 	"database/sql"
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -20,5 +21,10 @@ func InitDB() (*sql.DB, error) {
 	if err != nil {
 		panic(fmt.Sprintf("DB: %v", err))
 	}
+
+	conn.SetMaxIdleConns(3)
+	conn.SetMaxOpenConns(5)
+	conn.SetConnMaxLifetime(5 * time.Minute)
+
 	return conn, nil
 }
