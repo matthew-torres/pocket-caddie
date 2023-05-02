@@ -34,6 +34,9 @@ func GetRound(c *gin.Context) {
 	}
 
 	round, err = db.GetRoundByID(roundID)
+	if err != nil {
+		log.Println(err)
+	}
 
 	c.JSON(200, gin.H{
 		"round": round,
@@ -41,11 +44,49 @@ func GetRound(c *gin.Context) {
 }
 
 func GetRounds(c *gin.Context) {
+
+	var rounds []models.Round
+
+	rounds, err := db.GetAllRounds()
+	if err != nil {
+		log.Println(err)
+	}
+
 	c.JSON(200, gin.H{
-		"message": "multiple rounds",
+		"rounds": rounds,
 	})
 }
 
 func UpdateRound(c *gin.Context) {
-	return
+	var updateInfo map[string]interface{}
+	roundID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+	}
+	c.ShouldBindJSON(&updateInfo)
+
+	status, err := db.UpdateRound(roundID, updateInfo)
+	if err != nil {
+		log.Println(err)
+	}
+	c.JSON(status, gin.H{
+		"code": status,
+	})
+
+}
+
+func DeleteRound(c *gin.Context) {
+	roundID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	status, err := db.DeleteRound(roundID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	c.JSON(status, gin.H{
+		"code": status,
+	})
 }
