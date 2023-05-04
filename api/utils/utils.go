@@ -11,17 +11,11 @@ func GetRoundFromRows(rows *sql.Rows) ([]models.Round, error) {
 	for rows.Next() {
 		var round models.Round
 		//var tags string
-		err := rows.Scan(&round.ID, &round.UID, &round.Course, &round.Score)
+		err := rows.Scan(&round.ID, &round.Course, &round.Score, &round.Duration, &round.WeatherCond, &round.Date)
 		if err != nil {
 			return nil, err
 		}
 		rounds = append(rounds, round)
-		// 	task.Tags = []string{}
-		// 	if len(tags) > 0 {
-		// 		task.Tags = strings.Split(tags, ";")
-		// 	}
-		// 	rounds = append(rounds, round)
-		// }
 
 	}
 	return rounds, nil

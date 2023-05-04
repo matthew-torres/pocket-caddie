@@ -36,6 +36,8 @@ func main() {
 
 	r.GET("/user/:id", userController.GetUser)
 	r.POST("/newuser", userController.NewUser)
+	r.GET("/user/round/:id", roundController.GetRoundUID)
+	r.GET("/user/rounds/:id", userController.GetRoundAllUID)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

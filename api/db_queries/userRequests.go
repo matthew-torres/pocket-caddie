@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/matthew-torres/pocket-caddie/api/models"
+	"github.com/matthew-torres/pocket-caddie/api/utils"
 )
 
 type UserRequests struct {
@@ -41,4 +42,16 @@ func (conn *UserRequests) GetUserByID(userID int) (models.User, error) {
 
 	//defer db.Close()
 	return user, nil
+}
+
+func (conn *UserRequests) GetAllRoundsByUID(userID int) ([]models.Round, error) {
+
+	queryString := `SELECT ID, course, score, duration, weathercond, date FROM round WHERE uid = ($1)`
+	rows, err := conn.db.Query(queryString, userID)
+	if err == sql.ErrNoRows {
+		fmt.Printf("%s", err)
+		return nil, err
+	}
+	defer rows.Close()
+	return utils.GetRoundFromRows(rows)
 }

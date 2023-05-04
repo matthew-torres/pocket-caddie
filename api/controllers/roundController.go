@@ -100,3 +100,23 @@ func (d *RoundController) DeleteRound(c *gin.Context) {
 		"code": status,
 	})
 }
+
+func (d *RoundController) GetRoundUID(c *gin.Context) {
+
+	var round models.Round
+
+	UID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	round, err = d.rRequests.GetRoundByUID(UID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	round.UID = UID
+	c.JSON(200, gin.H{
+		"round": round,
+	})
+}

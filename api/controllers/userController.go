@@ -51,3 +51,22 @@ func (d *UserController) NewUser(c *gin.Context) {
 		"code": status,
 	})
 }
+
+func (d *UserController) GetRoundAllUID(c *gin.Context) {
+	var rounds []models.Round
+
+	userID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	rounds, err = d.uRequests.GetAllRoundsByUID(userID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	c.JSON(200, gin.H{
+		"user id": userID,
+		"rounds":  rounds,
+	})
+}
