@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/matthew-torres/pocket-caddie/api/db_queries"
 	"github.com/matthew-torres/pocket-caddie/api/models"
+	"github.com/matthew-torres/pocket-caddie/api/utils"
 )
 
 type UserController struct {
@@ -39,9 +40,16 @@ func (d *UserController) GetUser(c *gin.Context) {
 
 func (d *UserController) NewUser(c *gin.Context) {
 	var user models.User
+	var status int
 	c.ShouldBindJSON(&user)
 
-	status, err := d.uRequests.NewUser(user)
+	err := utils.HashPassword(&user, user.Password)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	status, err = d.uRequests.NewUser(user)
 	if err != nil {
 		log.Println(err)
 	}

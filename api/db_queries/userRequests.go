@@ -18,8 +18,8 @@ func (conn *UserRequests) Init(db *sql.DB) {
 
 func (conn *UserRequests) NewUser(user models.User) (int, error) {
 
-	queryString := `INSERT INTO users(Firstname, Lastname, Email) VALUES ($1, $2, $3)`
-	err := conn.db.QueryRow(queryString, user.Firstname, user.Lastname, user.Email).Err()
+	queryString := `INSERT INTO users(Firstname, Lastname, Email, Password, Handicap) VALUES ($1, $2, $3, $4, $5)`
+	err := conn.db.QueryRow(queryString, user.Firstname, user.Lastname, user.Email, user.Password, user.Handicap).Err()
 	if err != nil {
 		fmt.Printf("%s", err)
 		return 400, err
