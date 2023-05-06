@@ -33,8 +33,8 @@ func (conn *UserRequests) GetUserByID(userID int) (models.User, error) {
 	var user models.User
 
 	// prob can make a view and view model for users
-	queryString := `SELECT uid, firstname, lastname, email FROM users WHERE uid = ($1)`
-	err := conn.db.QueryRow(queryString, userID).Scan(&user.UID, &user.Firstname, &user.Lastname, &user.Email)
+	queryString := `SELECT uid, firstname, lastname, email, handicap FROM users WHERE uid = ($1)`
+	err := conn.db.QueryRow(queryString, userID).Scan(&user.UID, &user.Firstname, &user.Lastname, &user.Email, &user.Handicap)
 	if err != nil {
 		fmt.Printf("%s", err)
 		return user, err
