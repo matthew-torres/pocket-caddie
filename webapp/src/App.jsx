@@ -1,38 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import PieChart from './PieChart'
+import * as React from 'react';
 import './App.css'
+import DataTable from './ListRounds';
+import InsertTable from './NewRound';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App () {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <PieChart/>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-    </div>
+    <React.Fragment>
+      <h1>hi</h1>
+      <DataTable></DataTable>
+      <InsertTable></InsertTable>
+    </React.Fragment>
   )
 }
-
-export default App

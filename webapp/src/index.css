@@ -67,3 +67,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.white-header {
+  color: white
+}
+.white-text {
+  color: white
+}
+.MuiDataGrid-cellCheckbox .MuiDataGrid-checkboxInput {
+  color: white;
+}
