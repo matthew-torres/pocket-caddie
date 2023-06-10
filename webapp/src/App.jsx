@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css'
-import DataTable from './ListRounds';
+import DataTable from './UserView';
 import InsertTable from './NewRound';
 
 export default function App () {
