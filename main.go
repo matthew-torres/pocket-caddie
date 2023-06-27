@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -28,7 +27,6 @@ func main() {
 
 	db, err := db_queries.InitDB()
 	if err != nil {
-		fmt.Println("hello")
 		log.Fatal(err)
 	}
 
@@ -38,6 +36,8 @@ func main() {
 	userController.Init(db)
 	roundController := controllers.RoundController{}
 	roundController.Init(db)
+	holeController := controllers.HoleController{}
+	holeController.Init(db)
 
 	r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
@@ -52,6 +52,10 @@ func main() {
 	r.POST("/newuser", userController.NewUser)
 	r.GET("/user/round/:id", roundController.GetRoundUID)
 	r.GET("/user/rounds/:id", userController.GetRoundAllUID)
+
+	r.POST("/newhole", holeController.AddRound)
+	r.GET("/round/hole/:hid", holeController.GetHoleByID)
+	r.GET("/round/:id/holes/:rid", holeController.GetHoles)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
