@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import './index.css'
-import { MenuItem } from '@mui/material';
+import '../../index.css'
+import { MenuItem, Button } from '@mui/material';
 
 const weatherConditions = [
     {value: 'Clear'},{value: 'Fair'}, {value: 'Windy'}, {value: 'Extreme Wind'}, {value: 'Light Rain'}, {value: 'Rain'}, {value: 'Heavy Rain'}
 ]
 
-export default function InsertTable() {
+export default function CreateRound() {
+
+    const [success, setSuccess] = useState(false);
 
     const [formData, setFormData] = useState({
         // add uid to request based on user
@@ -41,6 +44,7 @@ export default function InsertTable() {
         axios.post('http://localhost:8080/newround', formData, {headers: {'Content-Type': 'application/json'}})
         .then(response => { 
             console.log(response)
+            setSuccess(true);
         })
         .catch(error => {
             console.log(error)
@@ -50,7 +54,7 @@ export default function InsertTable() {
     return (
     <Box
         component="form"
-        onSubmit={handleSubmit}
+        //onSubmit={handleSubmit}
         sx={{
           '& .MuiTextField-root': { m: 1, width: '25ch' },
         }}
@@ -115,7 +119,8 @@ export default function InsertTable() {
           onChange={handleChange}
           />
     </div>
-        <button type="submit">Submit</button>
+        <Button type="submit" variant='outlined' onClick={handleSubmit} color='primary'>Add</Button>
+        {success && <Alert severity="success">Round successfully added!</Alert>}
     </Box>
     )
 }
