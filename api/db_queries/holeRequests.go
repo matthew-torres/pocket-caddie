@@ -32,8 +32,8 @@ func (conn *HoleRequests) GetHoleByID(HID int) (models.Hole, error) {
 	var hole models.Hole
 
 	// prob can make a view and view model for round
-	queryString := `SELECT rid, holenumber, par, gir, fairwayhit, putts, score FROM hole WHERE hid = ($1)`
-	err := conn.db.QueryRow(queryString, HID).Scan(&hole.RID, &hole.HoleNumber, &hole.Par, &hole.GIR, &hole.FairwayHit, &hole.Putts, &hole.Score)
+	queryString := `SELECT rid, uid, holenumber, par, gir, fairwayhit, putts, score FROM hole WHERE hid = ($1)`
+	err := conn.db.QueryRow(queryString, HID).Scan(&hole.RID, &hole.UID, &hole.HoleNumber, &hole.Par, &hole.GIR, &hole.FairwayHit, &hole.Putts, &hole.Score)
 	if err == sql.ErrNoRows {
 		fmt.Printf("%s", err)
 		return hole, err

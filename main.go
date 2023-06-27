@@ -38,6 +38,8 @@ func main() {
 	roundController.Init(db)
 	holeController := controllers.HoleController{}
 	holeController.Init(db)
+	strokeController := controllers.StrokeController{}
+	strokeController.Init(db)
 
 	r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
@@ -53,9 +55,13 @@ func main() {
 	r.GET("/user/round/:id", roundController.GetRoundUID)
 	r.GET("/user/rounds/:id", userController.GetRoundAllUID)
 
-	r.POST("/newhole", holeController.AddRound)
+	r.POST("/newhole", holeController.AddHole)
 	r.GET("/round/hole/:hid", holeController.GetHoleByID)
 	r.GET("/round/:id/holes/:rid", holeController.GetHoles)
+
+	r.POST("/newstroke", strokeController.AddStroke)
+	r.GET("/user/:id/strokes", strokeController.GetHolesByUID)
+	r.GET("/round/:rid/strokes", strokeController.GetHolesByRID)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

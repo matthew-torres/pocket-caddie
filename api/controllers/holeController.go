@@ -19,7 +19,7 @@ func (c *HoleController) Init(db *sql.DB) {
 	c.hRequests.Init(db)
 }
 
-func (d *HoleController) AddRound(c *gin.Context) {
+func (d *HoleController) AddHole(c *gin.Context) {
 	var hole models.Hole
 	c.ShouldBindJSON(&hole)
 
