@@ -23,6 +23,11 @@ func (d *RoundController) AddRound(c *gin.Context) {
 	var round models.Round
 	c.ShouldBindJSON(&round)
 
+	UID, err := strconv.Atoi(c.Param("uid"))
+	if err != nil {
+		log.Println(err)
+	}
+	round.UID = UID
 	status, err := d.rRequests.NewRound(round)
 	if err != nil {
 		log.Println(err)
@@ -38,7 +43,7 @@ func (d *RoundController) GetRound(c *gin.Context) {
 
 	var round models.Round
 
-	roundID, err := strconv.Atoi(c.Param("id"))
+	roundID, err := strconv.Atoi(c.Param("rid"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -69,7 +74,7 @@ func (d *RoundController) GetRounds(c *gin.Context) {
 
 func (d *RoundController) UpdateRound(c *gin.Context) {
 	var updateInfo map[string]interface{}
-	roundID, err := strconv.Atoi(c.Param("id"))
+	roundID, err := strconv.Atoi(c.Param("rid"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -86,7 +91,7 @@ func (d *RoundController) UpdateRound(c *gin.Context) {
 }
 
 func (d *RoundController) DeleteRound(c *gin.Context) {
-	roundID, err := strconv.Atoi(c.Param("id"))
+	roundID, err := strconv.Atoi(c.Param("rid"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -105,7 +110,7 @@ func (d *RoundController) GetRoundUID(c *gin.Context) {
 
 	var round models.Round
 
-	UID, err := strconv.Atoi(c.Param("id"))
+	UID, err := strconv.Atoi(c.Param("uid"))
 	if err != nil {
 		log.Println(err)
 	}

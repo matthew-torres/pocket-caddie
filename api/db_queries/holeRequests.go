@@ -28,7 +28,7 @@ func (conn *HoleRequests) NewHole(hole models.Hole) (int, error) {
 	return 200, nil
 }
 
-func (conn *HoleRequests) GetHoleByID(HID int) (models.Hole, error) {
+func (conn *HoleRequests) GetHoleByHID(HID int) (models.Hole, error) {
 	var hole models.Hole
 
 	// prob can make a view and view model for round
@@ -45,6 +45,18 @@ func (conn *HoleRequests) GetHoleByID(HID int) (models.Hole, error) {
 func (conn *HoleRequests) GetAllHolesByRID(RID int) ([]models.Hole, error) {
 	queryString := `SELECT hid, rid, uid, holenumber, par, gir, fairwayhit, putts, score FROM hole WHERE rid = ($1)`
 	rows, err := conn.db.Query(queryString, RID)
+	if err == sql.ErrNoRows {
+		fmt.Printf("%s", err)
+		return nil, err
+	}
+	defer rows.Close()
+	return utils.GetHoleFromRows(rows)
+
+}
+
+func (conn *HoleRequests) GetAllHolesByUID(UID int) ([]models.Hole, error) {
+	queryString := `SELECT hid, rid, uid, holenumber, par, gir, fairwayhit, putts, score FROM hole WHERE uid = ($1)`
+	rows, err := conn.db.Query(queryString, UID)
 	if err == sql.ErrNoRows {
 		fmt.Printf("%s", err)
 		return nil, err

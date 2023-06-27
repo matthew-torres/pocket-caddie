@@ -34,7 +34,7 @@ func (d *HoleController) AddHole(c *gin.Context) {
 	})
 }
 
-func (d *HoleController) GetHoleByID(c *gin.Context) {
+func (d *HoleController) GetHoleByHID(c *gin.Context) {
 
 	var hole models.Hole
 
@@ -43,7 +43,7 @@ func (d *HoleController) GetHoleByID(c *gin.Context) {
 		log.Println(err)
 	}
 
-	hole, err = d.hRequests.GetHoleByID(HID)
+	hole, err = d.hRequests.GetHoleByHID(HID)
 	if err != nil {
 		log.Println(err)
 	}
@@ -54,7 +54,7 @@ func (d *HoleController) GetHoleByID(c *gin.Context) {
 	})
 }
 
-func (d *HoleController) GetHoles(c *gin.Context) {
+func (d *HoleController) GetHolesByRID(c *gin.Context) {
 
 	var holes []models.Hole
 
@@ -64,6 +64,25 @@ func (d *HoleController) GetHoles(c *gin.Context) {
 	}
 
 	holes, err = d.hRequests.GetAllHolesByRID(RID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	c.JSON(200, gin.H{
+		"holes": holes,
+	})
+}
+
+func (d *HoleController) GetHolesByUID(c *gin.Context) {
+
+	var holes []models.Hole
+
+	UID, err := strconv.Atoi(c.Param("uid"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	holes, err = d.hRequests.GetAllHolesByUID(UID)
 	if err != nil {
 		log.Println(err)
 	}

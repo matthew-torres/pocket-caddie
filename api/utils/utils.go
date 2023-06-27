@@ -44,7 +44,7 @@ func GetStrokeFromRows(rows *sql.Rows) ([]models.Stroke, error) {
 	for rows.Next() {
 		var stroke models.Stroke
 		//var tags string
-		err := rows.Scan(&stroke.STID, &stroke.HID, &stroke.UID, &stroke.Club, &stroke.Distance, &stroke.Lie, &stroke.ResultingLie, &stroke.ShotNum)
+		err := rows.Scan(&stroke.STID, &stroke.HID, &stroke.UID, &stroke.RID, &stroke.Club, &stroke.Distance, &stroke.Lie, &stroke.ResultingLie, &stroke.ShotNum)
 		if err != nil {
 			return nil, err
 		}

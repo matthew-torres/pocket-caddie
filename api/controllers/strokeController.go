@@ -34,11 +34,11 @@ func (d *StrokeController) AddStroke(c *gin.Context) {
 	})
 }
 
-func (d *StrokeController) GetHolesByUID(c *gin.Context) {
+func (d *StrokeController) GetStrokesByUID(c *gin.Context) {
 
 	//var stroke models.Stroke
 
-	UID, err := strconv.Atoi(c.Param("id"))
+	UID, err := strconv.Atoi(c.Param("uid"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -54,7 +54,7 @@ func (d *StrokeController) GetHolesByUID(c *gin.Context) {
 	})
 }
 
-func (d *StrokeController) GetHolesByRID(c *gin.Context) {
+func (d *StrokeController) GetStrokesByRID(c *gin.Context) {
 
 	//var stroke models.Stroke
 
@@ -63,7 +63,26 @@ func (d *StrokeController) GetHolesByRID(c *gin.Context) {
 		log.Println(err)
 	}
 
-	strokes, err := d.sRequests.GetAllStrokesByUID(RID)
+	strokes, err := d.sRequests.GetAllStrokesByRID(RID)
+	if err != nil {
+		log.Println(err)
+	}
+	//stroke.UID = UID
+	c.JSON(200, gin.H{
+		"strokes": strokes,
+	})
+}
+
+func (d *StrokeController) GetStrokesByHID(c *gin.Context) {
+
+	//var stroke models.Stroke
+
+	HID, err := strconv.Atoi(c.Param("hid"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	strokes, err := d.sRequests.GetAllStrokesByHID(HID)
 	if err != nil {
 		log.Println(err)
 	}

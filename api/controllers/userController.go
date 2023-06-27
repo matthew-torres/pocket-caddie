@@ -23,7 +23,7 @@ func (c *UserController) Init(db *sql.DB) {
 // TODO: fix error handling for bad id
 func (d *UserController) GetUser(c *gin.Context) {
 	var user models.User
-	userID, err := strconv.Atoi(c.Param("id"))
+	userID, err := strconv.Atoi(c.Param("uid"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -63,7 +63,7 @@ func (d *UserController) NewUser(c *gin.Context) {
 func (d *UserController) GetRoundAllUID(c *gin.Context) {
 	var rounds []models.Round
 
-	userID, err := strconv.Atoi(c.Param("id"))
+	userID, err := strconv.Atoi(c.Param("uid"))
 	if err != nil {
 		log.Println(err)
 	}
