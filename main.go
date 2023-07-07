@@ -55,20 +55,20 @@ func main() {
 	protected.GET("/:uid/round/:rid", roundController.GetRound)
 	protected.DELETE("/:uid/round/:rid", roundController.DeleteRound)
 
-	protected.GET("/user/:uid", userController.GetUser)
+	protected.GET("/user", userController.GetUser)
 	r.POST("/newuser", userController.NewUser)
 	//r.GET("/user/round/:uid", roundController.GetRoundUID)
-	protected.GET("/user/:uid/rounds", userController.GetRoundAllUID)
+	protected.GET("/user/rounds", userController.GetRoundAllUID)
 
-	protected.POST("/newhole", holeController.AddHole)
-	protected.GET("/round/:uid/:rid/holes/:hid", holeController.GetHoleByHID)
-	protected.GET("/round/:uid/:rid/holes", holeController.GetHolesByRID)
-	protected.GET("/round/:uid/holes", holeController.GetHolesByUID)
+	protected.POST("round/:rid/newhole", holeController.AddHole)
+	protected.GET("/round/:rid/holes/:hid", holeController.GetHoleByHID)
+	protected.GET("/round/:rid/holes", holeController.GetHolesByRID)
+	protected.GET("/round/holes", holeController.GetHolesByUID)
 
 	protected.POST("/newstroke", strokeController.AddStroke)
-	protected.GET("/user/:uid/strokes", strokeController.GetStrokesByUID)
-	protected.GET("/round/:uid/strokes/:rid", strokeController.GetStrokesByRID)
-	protected.GET("/round/:uid/hole/strokes/:hid", strokeController.GetStrokesByHID)
+	protected.GET("/user/strokes", strokeController.GetStrokesByUID)
+	protected.GET("/round/strokes/:rid", strokeController.GetStrokesByRID)
+	protected.GET("/round/hole/strokes/:hid", strokeController.GetStrokesByHID)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

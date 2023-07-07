@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/matthew-torres/pocket-caddie/api/db_queries"
@@ -25,14 +24,18 @@ func (c *UserController) Init(db *sql.DB) {
 // TODO: fix error handling for bad id
 func (d *UserController) GetUser(c *gin.Context) {
 	var user models.User
-	userID, err := strconv.Atoi(c.Param("uid"))
+	UID, err := utils.ExtractTokenID(c)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to extract user id"})
+		return
 	}
 
-	user, err = d.uRequests.GetUserByID(userID)
+	user, err = d.uRequests.GetUserByID(UID)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to get user by uid"})
+		return
 	}
 
 	c.JSON(200, gin.H{
@@ -48,12 +51,15 @@ func (d *UserController) NewUser(c *gin.Context) {
 	err := utils.HashPassword(&user, user.Password)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to hash password"})
 		return
 	}
 
 	status, err = d.uRequests.NewUser(user)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to insert new user"})
+		return
 	}
 
 	c.JSON(status, gin.H{
@@ -65,18 +71,20 @@ func (d *UserController) NewUser(c *gin.Context) {
 func (d *UserController) GetRoundAllUID(c *gin.Context) {
 	var rounds []models.Round
 
-	userID, err := strconv.Atoi(c.Param("uid"))
+	UID, err := utils.ExtractTokenID(c)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to extract user id"})
+		return
 	}
 
-	rounds, err = d.uRequests.GetAllRoundsByUID(userID)
+	rounds, err = d.uRequests.GetAllRoundsByUID(UID)
 	if err != nil {
 		log.Println(err)
 	}
 
 	c.JSON(200, gin.H{
-		"user id": userID,
+		"user id": UID,
 		"rounds":  rounds,
 	})
 }
