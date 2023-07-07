@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/matthew-torres/pocket-caddie/api/controllers"
 	"github.com/matthew-torres/pocket-caddie/api/db_queries"
+	"github.com/matthew-torres/pocket-caddie/api/middleware"
 )
 
 func main() {
@@ -43,27 +44,31 @@ func main() {
 
 	r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
+	r.POST("/login", userController.UserLogin)
 
-	r.POST("/round/:uid/newround", roundController.AddRound)
-	r.GET("/rounds", roundController.GetRounds)
-	r.PUT("/:uid/round/:rid", roundController.UpdateRound)
-	r.GET("/:uid/round/:rid", roundController.GetRound)
-	r.DELETE("/:uid/round/:rid", roundController.DeleteRound)
+	protected := r.Group("/api")
+	protected.Use(middleware.JwtAuthMiddleware())
 
-	r.GET("/user/:uid", userController.GetUser)
+	protected.POST("/round/newround", roundController.AddRound)
+	protected.GET("/rounds", roundController.GetRounds)
+	protected.PUT("/:uid/round/:rid", roundController.UpdateRound)
+	protected.GET("/:uid/round/:rid", roundController.GetRound)
+	protected.DELETE("/:uid/round/:rid", roundController.DeleteRound)
+
+	protected.GET("/user/:uid", userController.GetUser)
 	r.POST("/newuser", userController.NewUser)
 	//r.GET("/user/round/:uid", roundController.GetRoundUID)
-	r.GET("/user/:uid/rounds", userController.GetRoundAllUID)
+	protected.GET("/user/:uid/rounds", userController.GetRoundAllUID)
 
-	r.POST("/newhole", holeController.AddHole)
-	r.GET("/round/:uid/:rid/holes/:hid", holeController.GetHoleByHID)
-	r.GET("/round/:uid/:rid/holes", holeController.GetHolesByRID)
-	r.GET("/round/:uid/holes", holeController.GetHolesByUID)
+	protected.POST("/newhole", holeController.AddHole)
+	protected.GET("/round/:uid/:rid/holes/:hid", holeController.GetHoleByHID)
+	protected.GET("/round/:uid/:rid/holes", holeController.GetHolesByRID)
+	protected.GET("/round/:uid/holes", holeController.GetHolesByUID)
 
-	r.POST("/newstroke", strokeController.AddStroke)
-	r.GET("/user/:uid/strokes", strokeController.GetStrokesByUID)
-	r.GET("/round/:uid/strokes/:rid", strokeController.GetStrokesByRID)
-	r.GET("/round/:uid/hole/strokes/:hid", strokeController.GetStrokesByHID)
+	protected.POST("/newstroke", strokeController.AddStroke)
+	protected.GET("/user/:uid/strokes", strokeController.GetStrokesByUID)
+	protected.GET("/round/:uid/strokes/:rid", strokeController.GetStrokesByRID)
+	protected.GET("/round/:uid/hole/strokes/:hid", strokeController.GetStrokesByHID)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

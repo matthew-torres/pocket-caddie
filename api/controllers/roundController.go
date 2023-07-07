@@ -3,11 +3,13 @@ package controllers
 import (
 	"database/sql"
 	"log"
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/matthew-torres/pocket-caddie/api/db_queries"
 	"github.com/matthew-torres/pocket-caddie/api/models"
+	"github.com/matthew-torres/pocket-caddie/api/utils"
 )
 
 type RoundController struct {
@@ -23,10 +25,13 @@ func (d *RoundController) AddRound(c *gin.Context) {
 	var round models.Round
 	c.ShouldBindJSON(&round)
 
-	UID, err := strconv.Atoi(c.Param("uid"))
+	UID, err := utils.ExtractTokenID(c)
 	if err != nil {
 		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to extract user id"})
+		return
 	}
+
 	round.UID = UID
 	status, err := d.rRequests.NewRound(round)
 	if err != nil {

@@ -3,12 +3,14 @@ package controllers
 import (
 	"database/sql"
 	"log"
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/matthew-torres/pocket-caddie/api/db_queries"
 	"github.com/matthew-torres/pocket-caddie/api/models"
 	"github.com/matthew-torres/pocket-caddie/api/utils"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserController struct {
@@ -77,4 +79,43 @@ func (d *UserController) GetRoundAllUID(c *gin.Context) {
 		"user id": userID,
 		"rounds":  rounds,
 	})
+}
+
+func (d *UserController) UserLogin(c *gin.Context) {
+
+	var login models.UserLogin
+	if err := c.ShouldBindJSON(&login); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user := models.User{}
+	user.Email = login.Email
+	user.Password = login.Password
+
+	token, err := d.checkLogin(user.Email, user.Password)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"token": token})
+}
+
+func (d *UserController) checkLogin(email string, password string) (string, error) {
+
+	user, err := d.uRequests.GetUserByEmail(email)
+	if err != nil {
+		return "", err
+	}
+
+	err = utils.CheckPassword(user, password)
+	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
+		return "", err
+	}
+	token, err := utils.GenerateToken(user.UID)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
 }

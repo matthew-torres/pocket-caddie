@@ -44,6 +44,21 @@ func (conn *UserRequests) GetUserByID(userID int) (models.User, error) {
 	return user, nil
 }
 
+func (conn *UserRequests) GetUserByEmail(email string) (models.User, error) {
+	var user models.User
+
+	// prob can make a view and view model for users
+	queryString := `SELECT uid, firstname, lastname, email, password, handicap FROM users WHERE email = ($1)`
+	err := conn.db.QueryRow(queryString, email).Scan(&user.UID, &user.Firstname, &user.Lastname, &user.Email, &user.Password, &user.Handicap)
+	if err != nil {
+		fmt.Printf("%s", err)
+		return user, err
+	}
+
+	//defer db.Close()
+	return user, nil
+}
+
 func (conn *UserRequests) GetAllRoundsByUID(userID int) ([]models.Round, error) {
 
 	queryString := `SELECT ID, course, score, duration, weathercond, date FROM round WHERE uid = ($1)`
