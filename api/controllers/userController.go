@@ -45,7 +45,7 @@ func (d *UserController) GetUser(c *gin.Context) {
 
 func (d *UserController) NewUser(c *gin.Context) {
 	var user models.User
-	var status int
+	var uid int
 	c.ShouldBindJSON(&user)
 
 	err := utils.HashPassword(&user, user.Password)
@@ -55,16 +55,22 @@ func (d *UserController) NewUser(c *gin.Context) {
 		return
 	}
 
-	status, err = d.uRequests.NewUser(user)
+	uid, err = d.uRequests.NewUser(user)
 	if err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to insert new user"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to insert new user", "message": err})
 		return
 	}
 
-	c.JSON(status, gin.H{
-		"user": user,
-		"code": status,
+	token, err := utils.GenerateToken(uid)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to get user by uid"})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"token": token,
 	})
 }
 
