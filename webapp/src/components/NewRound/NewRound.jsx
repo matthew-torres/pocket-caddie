@@ -16,7 +16,6 @@ export default function CreateRound() {
 
     const [formData, setFormData] = useState({
         // add uid to request based on user
-        UID: 0,
         Course: '',
         Score: 0,
         Duration: 0,
@@ -41,7 +40,7 @@ export default function CreateRound() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData); // JSON object with the form data, make axios request to api
-        axios.post('http://localhost:8080/newround', formData, {headers: {'Content-Type': 'application/json'}})
+        axios.post('http://localhost:8080/api/round/newround', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             console.log(response)
             setSuccess(true);
@@ -62,19 +61,6 @@ export default function CreateRound() {
         autoComplete="off"
     >
     <div>
-    <TextField
-          required
-          id="filled-uid"
-          name="UID"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          label="UID"
-          variant="standard"
-          value={formData.UID}
-          onChange={handleChange}
-        />
         <TextField
           required
           id="filled-course"

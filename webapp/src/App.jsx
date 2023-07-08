@@ -5,7 +5,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 // import { ColorModeContext, useMode } from '../theme';
 import Layout from './components/Layout/Layout';
-import Sidebar from './global/Sidebar'
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+
 
 export default function App () {
   // const [theme, colorMode] = useMode();
@@ -16,11 +18,13 @@ export default function App () {
         // <ThemeProvider theme={theme}>
         <React.Fragment>
           <div className='app'>
-            <Sidebar isSidebar={isSidebar}/>
+            {/* <Sidebar isSidebar={isSidebar}/> */}
             <main className='content'>
               <BrowserRouter>
                 <Routes>
-                  <Route path='/' element={<Layout/>} />
+                  <Route path='/' element={<Login/>} />
+                  <Route path='/user' element={<Layout/>} />
+                  <Route path='/signup' element={<Signup/>} />
                 </Routes>
               </BrowserRouter>
             </main>

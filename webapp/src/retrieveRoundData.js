@@ -4,9 +4,14 @@ import axios from 'axios';
 const useRowsData = (userId) => {
   const [rows, setRows] = useState([]);
 
+
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/user/rounds/11`)
+      .get('http://localhost:8080/api/user/rounds', {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      })
       .then(response => {
         const mappedRows = response.data.rounds.map(round => ({
           id: round.ID,

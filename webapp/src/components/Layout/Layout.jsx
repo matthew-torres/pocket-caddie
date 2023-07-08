@@ -25,6 +25,12 @@ const theme = createTheme({
 })
 
 export default function Layout() {
+
+    if (sessionStorage.getItem('token') === null) {
+      window.location.href = '/';
+      return
+    } 
+    
     return (
         <ThemeProvider theme={theme}>
             <Box m="20px">
