@@ -3,26 +3,11 @@ import DataTable from "../RoundsList/RoundsList";
 import ScoreBarChart from "../ScoreBarChart/ScoreBarChart";
 import CreateRound from "../NewRound/NewRound";
 import { Box, Typography } from "@mui/material";
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import RoundsListScore from "../RoundListScore/RoundListScore";
+import { globalTheme } from "../../theme";
+import { useTheme } from "@emotion/react";
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#7e57c2',
-    },
-    secondary: {
-      main: '#6d696a',
-    },
-    background: {
-      default: '#161515',
-    },
-    text: {
-      primary: 'rgba(249,244,244,0.87)',
-    },
-  },
-})
 
 export default function Layout() {
 
@@ -30,13 +15,15 @@ export default function Layout() {
       window.location.href = '/';
       return
     } 
-    
+
+    const theme = useTheme();
+
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={globalTheme}>
             <Box m="20px">
                 {/*Header*/}
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography variant="h2" color='primary' fontWeight="bold" sx={{ m: "0 0 5px 0"}}>Dashboard</Typography>
+                    <Typography variant="h2" color={theme.palette.primary.main} fontWeight="bold" sx={{ m: "0 0 5px 0"}}>Dashboard</Typography>
                 </Box>
                 {/*GRID & CHARTS*/}
                 <Box display="grid" gridTemplateColumns="repeat(12,1fr)" gridAutoRows="300px" gap="10px">

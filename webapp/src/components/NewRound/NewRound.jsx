@@ -4,7 +4,9 @@ import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import '../../index.css'
-import { MenuItem, Button } from '@mui/material';
+import { MenuItem, Button, ThemeProvider, useTheme} from '@mui/material';
+import { globalTheme } from '../../theme';
+
 
 const weatherConditions = [
     {value: 'Clear'},{value: 'Fair'}, {value: 'Windy'}, {value: 'Extreme Wind'}, {value: 'Light Rain'}, {value: 'Rain'}, {value: 'Heavy Rain'}
@@ -13,6 +15,7 @@ const weatherConditions = [
 export default function CreateRound() {
 
     const [success, setSuccess] = useState(false);
+    //const theme = useTheme();
 
     const [formData, setFormData] = useState({
         // add uid to request based on user
@@ -25,6 +28,7 @@ export default function CreateRound() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         let parsedValue = value;
+
         if (name === 'UID' || name === 'Score' || name === 'Duration') {
           parsedValue = parseInt(value);
           if (isNaN(parsedValue)) {
@@ -51,62 +55,65 @@ export default function CreateRound() {
     };
 
     return (
-    <Box
-        component="form"
-        //onSubmit={handleSubmit}
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-    >
-    <div>
-        <TextField
-          required
-          id="filled-course"
-          name="Course"
-          label="Course"
-          variant="filled"
-          value={formData.Course}
-          onChange={handleChange}
-        />
-        <TextField
-          required
-          id="filled-score"
-          name="Score"
-          type="number"
-          label="Score"
-          variant="filled"
-          value={formData.Score}
-          onChange={handleChange}
-        />
-        <TextField
-          select
-          id="filled-weatherCond"
-          label="Weather Condition"
-          defaultValue="Fair"
-          variant="filled"
-          value={formData.WeatherCond}
-          onChange={handleChange}
+      //<ThemeProvider theme={globalTheme}>
+        <Box
+            component="form"
+            //onSubmit={handleSubmit}
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
         >
-            {weatherConditions.map((cond) => (
-                <MenuItem key={cond.value} value={cond.value}>
-                    {cond.value}
-                </MenuItem>
-            )
-            )}
-        </TextField>
-        <TextField
-          id="filled-duration"
-          name="Duration"
-          type="number"
-          label="Duration (hours)"
-          value={formData.Duration}
-          onChange={handleChange}
-          />
-    </div>
-        <Button type="submit" variant='outlined' onClick={handleSubmit} color='primary'>Add</Button>
-        {success && <Alert severity="success">Round successfully added!</Alert>}
-    </Box>
+        <div>
+            <TextField
+              required
+              id="filled-course"
+              name="Course"
+              label="Course"
+              variant="filled"
+              value={formData.Course}
+              onChange={handleChange}
+            />
+            <TextField
+              required
+              id="filled-score"
+              name="Score"
+              type="number"
+              label="Score"
+              variant="filled"
+              value={formData.Score}
+              onChange={handleChange}
+            />
+            <TextField
+              select
+              id="filled-weatherCond"
+              label="Weather Condition"
+              defaultValue="Fair"
+              variant="filled"
+              value={formData.WeatherCond}
+              onChange={handleChange}
+            >
+                {weatherConditions.map((cond) => (
+                    <MenuItem key={cond.value} value={cond.value} >{/*sx={{backgroundColor: theme.palette.background.default, '&:hover': {
+                    backgroundColor: theme.palette.primary.main}}}>*/}
+                        {cond.value}
+                    </MenuItem>
+                )
+                )}
+            </TextField>
+            <TextField
+              id="filled-duration"
+              name="Duration"
+              type="number"
+              label="Duration (hours)"
+              value={formData.Duration}
+              onChange={handleChange}
+              />
+        </div>
+            <Button type="submit" variant='outlined' onClick={handleSubmit} color="primary">Add</Button>
+            {success && <Alert severity="success">Round successfully added!</Alert>}
+        </Box>
+   // </ThemeProvider>
     )
 }

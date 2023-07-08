@@ -14,10 +14,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { globalTheme } from '../../theme';
 
 
 
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
 export default function Login() {
     
       const [failure, setFailure] = useState(false);
@@ -47,7 +48,7 @@ export default function Login() {
       };
     
       return (
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={globalTheme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box

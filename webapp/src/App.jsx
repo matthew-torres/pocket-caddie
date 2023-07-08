@@ -7,15 +7,15 @@ import './App.css'
 import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
+import { globalTheme } from './theme';
 
 
 export default function App () {
   // const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   return (
-  
-      // <ColorModeContext.Provider value={colorMode}>
-        // <ThemeProvider theme={theme}>
+
+       <ThemeProvider theme={globalTheme}>
         <React.Fragment>
           <div className='app'>
             {/* <Sidebar isSidebar={isSidebar}/> */}
@@ -30,7 +30,6 @@ export default function App () {
             </main>
           </div>
         </React.Fragment>
-        // </ThemeProvider>
-      // </ColorModeContext.Provider>
+       </ThemeProvider>
   )
 }
