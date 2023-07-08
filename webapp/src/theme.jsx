@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { palette } from "@mui/system";
 
 export const globalTheme = createTheme({
   palette: {
@@ -14,58 +13,40 @@ export const globalTheme = createTheme({
     },
   },
   components: {
-    MuiCheckbox: {
+    MuiSelect: {
       styleOverrides: {
         root: {
-          '&:hover': {
-            backgroundColor: 'transparent',
+          '&:focus': {
+            backgroundColor: 'transparent', // Remove focus background color
           },
-          '&.Mui-checked': {
-            color: '#942bc4', // Customize the color of the checked checkbox
-          },
-          '&.Mui-checked:hover': {
-            backgroundColor: 'transparent',
+        },
+        select: {
+          '&:focus': {
+            backgroundColor: 'transparent', // Remove focus background color
           },
         },
       },
     },
-    TextField: {
+    MuiMenuItem: {
       styleOverrides: {
         root: {
-
-        }
-      }
-    },
-    // MuiOutlinedInput: {
-    //   styleOverrides: {
-    //     root: {
-    //       '& fieldset': {
-    //         borderColor: '#FFFFFF', // Set the outline color to white
-    //       },
-    //     },
-    //   },
-    MuiInputLabel: {
-        styleOverrides: {
-          root: {
-            color: '#FFFFFF', // Set the label color to white
+          '&.Mui-selected': {
+            backgroundColor: '#942bc4', // Set the background color of the selected MenuItem
+            color: '#FFFFFF', // Set the text color of the selected MenuItem
+          },
+          '&:hover': {
+            backgroundColor: '#942bc4', // Set the background color of the MenuItem on hover
+            color: '#FFFFFF', // Set the text color of the MenuItem on hover
           },
         },
-     // },
+      },
     },
-    // MenuItem: {
-    //   root: {
-    //     color: '#333333'
-    //   },
-    //   '&:hover': {
-    //     backgroundColor: 'transparent',
-    //   },
-    //   '& .MuiInputBase-root': {
-    //     backgroundColor: `transparent`,
-    //   },
-    //   '& .MuiMenuItem-root:hover': {
-    //     backgroundColor: `transparent`,
-    //   },
-    // }
-
-  }
-})
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: '#FFFFFF', // Set the label color to white
+        },
+      },
+    },
+  },
+});

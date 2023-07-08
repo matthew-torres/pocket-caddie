@@ -3,10 +3,9 @@ import DataTable from "../RoundsList/RoundsList";
 import ScoreBarChart from "../ScoreBarChart/ScoreBarChart";
 import CreateRound from "../NewRound/NewRound";
 import { Box, Typography } from "@mui/material";
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, useTheme } from '@mui/material';
 import RoundsListScore from "../RoundListScore/RoundListScore";
 import { globalTheme } from "../../theme";
-import { useTheme } from "@emotion/react";
 
 
 export default function Layout() {

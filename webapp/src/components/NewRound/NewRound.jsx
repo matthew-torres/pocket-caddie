@@ -15,7 +15,7 @@ const weatherConditions = [
 export default function CreateRound() {
 
     const [success, setSuccess] = useState(false);
-    //const theme = useTheme();
+    const theme = useTheme();
 
     const [formData, setFormData] = useState({
         // add uid to request based on user
@@ -89,14 +89,31 @@ export default function CreateRound() {
               select
               id="filled-weatherCond"
               label="Weather Condition"
-              defaultValue="Fair"
+              name="WeatherCond"
               variant="filled"
               value={formData.WeatherCond}
               onChange={handleChange}
+              SelectProps={{
+                MenuProps: {
+                  PaperProps: {
+                    sx: {
+                      backgroundColor: theme.palette.background.default, // Set the background color of the dropdown menu
+                    },
+                  },
+                  sx: {
+                    '& .Mui-selected': {
+                      backgroundColor: theme.palette.primary.main, // Set the background color of the selected MenuItem
+                      color: '#transparent', // Set the text color of the selected MenuItem
+                    },
+                  },
+                },
+                sx: {
+                  textAlign: 'left',
+                }
+              }}
             >
                 {weatherConditions.map((cond) => (
-                    <MenuItem key={cond.value} value={cond.value} >{/*sx={{backgroundColor: theme.palette.background.default, '&:hover': {
-                    backgroundColor: theme.palette.primary.main}}}>*/}
+                    <MenuItem key={cond.value} value={cond.value}> 
                         {cond.value}
                     </MenuItem>
                 )
