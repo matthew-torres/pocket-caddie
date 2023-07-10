@@ -22,6 +22,38 @@ func GetRoundFromRows(rows *sql.Rows) ([]models.Round, error) {
 	return rounds, nil
 }
 
+// combine the two fucntions into a generic one
+func GetHoleFromRows(rows *sql.Rows) ([]models.Hole, error) {
+	holes := []models.Hole{}
+	for rows.Next() {
+		var hole models.Hole
+		//var tags string
+		err := rows.Scan(&hole.HID, &hole.RID, &hole.UID, &hole.HoleNumber, &hole.Par, &hole.GIR, &hole.FairwayHit, &hole.Putts, &hole.Score)
+		if err != nil {
+			return nil, err
+		}
+		holes = append(holes, hole)
+
+	}
+	return holes, nil
+}
+
+// combine the two fucntions into a generic one
+func GetStrokeFromRows(rows *sql.Rows) ([]models.Stroke, error) {
+	strokes := []models.Stroke{}
+	for rows.Next() {
+		var stroke models.Stroke
+		//var tags string
+		err := rows.Scan(&stroke.STID, &stroke.HID, &stroke.UID, &stroke.RID, &stroke.Club, &stroke.Distance, &stroke.Lie, &stroke.ResultingLie, &stroke.ShotNum)
+		if err != nil {
+			return nil, err
+		}
+		strokes = append(strokes, stroke)
+
+	}
+	return strokes, nil
+}
+
 func HashPassword(user *models.User, password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err != nil {
