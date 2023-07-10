@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Dialog from '@mui/material/Dialog';
 import CreateHole from "../CreateHole/CreateHole";
+import Navbar from "../../global/Navbar";
 
 
 const columns = [
@@ -103,6 +104,10 @@ export default function RoundView() {
 
   return (
     <ThemeProvider theme={globalTheme}>
+       {/* <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Navbar />
+    </div> */}
+
     <div style={{ position: 'absolute', top: '40px', left: '40px' }}>
         <Typography variant="h1" component="h2">
             {roundData && roundData.Course}
