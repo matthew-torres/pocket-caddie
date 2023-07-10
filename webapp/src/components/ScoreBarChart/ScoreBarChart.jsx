@@ -20,7 +20,6 @@ export default function ScoreBarChart() {
       }
   
       const avgScore = calculateAverageScore(rows)
-      console.log(avgScore)
     return (
       <ThemeProvider theme={globalTheme}>
         <React.Fragment>
