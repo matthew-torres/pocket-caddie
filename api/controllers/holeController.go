@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -51,6 +52,47 @@ func (d *HoleController) AddHole(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"hole": hole,
+		"code": status,
+	})
+}
+
+func (d *HoleController) DeleteHoles(c *gin.Context) {
+	var req models.DeleteHolesType
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	for _, hole := range req.SelectionModel {
+		_, err := d.hRequests.DeleteHole(hole)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": "unable to delete hole using hole id"})
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
+}
+
+func (d *HoleController) DeleteHole(c *gin.Context) {
+	HID, err := strconv.Atoi(c.Param("hid"))
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to extract hole id"})
+		return
+	}
+	fmt.Printf("%d", HID)
+
+	status, err := d.hRequests.DeleteHole(HID)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to delete hole using hole id"})
+		return
+	}
+
+	c.JSON(status, gin.H{
 		"code": status,
 	})
 }

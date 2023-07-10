@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { globalTheme } from '../../theme';
 
@@ -22,6 +22,7 @@ import { globalTheme } from '../../theme';
 export default function Login() {
     
       const [failure, setFailure] = useState(false);
+      const theme = useTheme()
       const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -37,7 +38,7 @@ export default function Login() {
             // Storing the token in session storage
             sessionStorage.setItem('token', response.data["token"]);
 
-            window.location.href = '/user';
+            window.location.href = '/dashboard';
 
         })
         .catch(error => {
@@ -59,10 +60,10 @@ export default function Login() {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h5" color={theme.palette.text.secondary}>
                 Sign in
               </Typography>
               <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -87,7 +88,7 @@ export default function Login() {
                   autoComplete="current-password"
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
+                  control={<Checkbox value="remember" color="secondary"> </Checkbox>}
                   label="Remember me"
                 />
                 <Button
@@ -96,7 +97,9 @@ export default function Login() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                    <Typography variant="body1" color={theme.palette.text.secondary}>
+                      Sign In
+                  </Typography>
                 </Button>
                 {failure && <Alert severity="error">Email or Password is incorrect</Alert>}
                 <Grid container>

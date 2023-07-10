@@ -11,3 +11,6 @@ type Hole struct {
 	Putts      int  `json:"Putts"`
 	Score      int  `json:"Score"`
 }
+type DeleteHolesType struct {
+	SelectionModel []int `json:"selectionModel"`
+}

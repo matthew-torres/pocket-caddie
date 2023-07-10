@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import '../../index.css'
 import { MenuItem, Button, ThemeProvider, useTheme} from '@mui/material';
-import { globalTheme } from '../../theme';
+import { useLocation } from 'react-router-dom';
 
 
 const weatherConditions = [
@@ -21,7 +21,7 @@ export default function CreateRound() {
         // add uid to request based on user
         Course: '',
         Score: 0,
-        Duration: 0,
+        Duration: 0.0,
         WeatherCond: 'Clear',
     });
 
@@ -29,8 +29,13 @@ export default function CreateRound() {
         const { name, value } = event.target;
         let parsedValue = value;
 
-        if (name === 'UID' || name === 'Score' || name === 'Duration') {
+        if (name === 'UID' || name === 'Score') {
           parsedValue = parseInt(value);
+          if (isNaN(parsedValue)) {
+            parsedValue = ''; // Set to empty string if parsing fails
+          }
+        } else if (name === 'Duration') {
+          parsedValue = parseFloat(value);
           if (isNaN(parsedValue)) {
             parsedValue = ''; // Set to empty string if parsing fails
           }
@@ -44,10 +49,12 @@ export default function CreateRound() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData); // JSON object with the form data, make axios request to api
+        console.log(formData.Duration)
         axios.post('http://localhost:8080/api/round/newround', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             console.log(response)
             setSuccess(true);
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)
@@ -124,12 +131,13 @@ export default function CreateRound() {
               name="Duration"
               type="number"
               label="Duration (hours)"
+              variant='filled'
               value={formData.Duration}
               onChange={handleChange}
               />
         </div>
             <Button type="submit" variant='outlined' onClick={handleSubmit} color="primary">Add</Button>
-            {success && <Alert severity="success">Round successfully added!</Alert>}
+            {success && <Alert severity="success" onClose={() => {setSuccess(false)}}>Round successfully added!</Alert>}
         </Box>
    // </ThemeProvider>
     )

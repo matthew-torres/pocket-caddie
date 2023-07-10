@@ -107,6 +107,26 @@ func (d *RoundController) UpdateRound(c *gin.Context) {
 
 }
 
+func (d *RoundController) DeleteRounds(c *gin.Context) {
+	var req models.DeleteRoundsType
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	for _, round := range req.SelectionModel {
+		_, err := d.rRequests.DeleteRound(round)
+		if err != nil {
+			log.Println(err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": "unable to delete round using round id"})
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
+}
+
 func (d *RoundController) DeleteRound(c *gin.Context) {
 	roundID, err := strconv.Atoi(c.Param("rid"))
 	if err != nil {

@@ -7,7 +7,9 @@ import './App.css'
 import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
+import NewRound from './components/NewRound/NewRound';
 import { globalTheme } from './theme';
+import RoundView from './components/RoundView/RoundView';
 
 
 export default function App () {
@@ -23,8 +25,10 @@ export default function App () {
               <BrowserRouter>
                 <Routes>
                   <Route path='/' element={<Login/>} />
-                  <Route path='/user' element={<Layout/>} />
+                  <Route path='/dashboard' element={<Layout/>} />
                   <Route path='/signup' element={<Signup/>} />
+                  <Route path='/addround' element={<NewRound/>}/>
+                  <Route path='/round/:rid' element={<RoundView/>}/>
                 </Routes>
               </BrowserRouter>
             </main>

@@ -46,7 +46,7 @@ export default function ScoreBarChart() {
               <ReferenceLine y={avgScore} stroke="red" /*label={avgScore.toPrecision(4)}*/ strokeDasharray="5 5" position="end"/>
               </BarChart>
             </ResponsiveContainer>
-            <h5>Average Score: {avgScore.toPrecision(4)}</h5>
+            <h5 style={{ color: theme.palette.text.secondary}}>Average Score: {avgScore.toPrecision(4)} </h5>
         </React.Fragment>
     </ThemeProvider>
     );

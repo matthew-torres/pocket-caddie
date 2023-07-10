@@ -9,16 +9,13 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { globalTheme } from '../../theme';
 
-
-
-const defaultTheme = createTheme();
 export default function Signup() {
     
       const [failure, setFailure] = useState(false);
@@ -40,7 +37,7 @@ export default function Signup() {
             // Storing the token in session storage
             sessionStorage.setItem('token', response.data["token"]);
 
-            window.location.href = '/user';
+            window.location.href = '/dashboard';
 
         })
         .catch(error => {
@@ -62,11 +59,11 @@ export default function Signup() {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
+              <Avatar sx={{ m: 2, bgcolor: 'secondary.main'}}>
+                <GolfCourseIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Registration
               </Typography>
               <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
@@ -121,7 +118,7 @@ export default function Signup() {
                   autoFocus
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
+                  control={<Checkbox value="remember" color="primary"/>}
                   label="Remember me"
                 />
                 <Button

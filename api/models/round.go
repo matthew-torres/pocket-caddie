@@ -12,6 +12,10 @@ type Round struct {
 	Date        time.Time `json:"Date"`
 }
 
+type DeleteRoundsType struct {
+	SelectionModel []int `json:"selectionModel"`
+}
+
 // type RoundView struct {
 // 	ID          int       `json:"ID"`
 // 	Course      string    `json:"Course"`

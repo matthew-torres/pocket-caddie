@@ -42,7 +42,7 @@ func main() {
 	strokeController := controllers.StrokeController{}
 	strokeController.Init(db)
 
-	r.GET("/", index)
+	// r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
 	r.POST("/login", userController.UserLogin)
 
@@ -51,9 +51,10 @@ func main() {
 
 	protected.POST("/round/newround", roundController.AddRound)
 	protected.GET("/rounds", roundController.GetRounds)
-	protected.PUT("/:uid/round/:rid", roundController.UpdateRound)
-	protected.GET("/:uid/round/:rid", roundController.GetRound)
-	protected.DELETE("/:uid/round/:rid", roundController.DeleteRound)
+	protected.PUT("/round/:rid", roundController.UpdateRound)
+	protected.GET("/round/:rid", roundController.GetRound)
+	protected.DELETE("/round/:rid", roundController.DeleteRound)
+	protected.DELETE("/rounds", roundController.DeleteRounds)
 
 	protected.GET("/user", userController.GetUser)
 	r.POST("/newuser", userController.NewUser)
@@ -64,6 +65,8 @@ func main() {
 	protected.GET("/round/:rid/holes/:hid", holeController.GetHoleByHID)
 	protected.GET("/round/:rid/holes", holeController.GetHolesByRID)
 	protected.GET("/round/holes", holeController.GetHolesByUID)
+	protected.DELETE("/round/:rid/holes/:hid", holeController.DeleteHole)
+	protected.DELETE("/round/:rid/holes", holeController.DeleteHoles)
 
 	protected.POST("/newstroke", strokeController.AddStroke)
 	protected.GET("/user/strokes", strokeController.GetStrokesByUID)
@@ -73,9 +76,9 @@ func main() {
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 
-func index(c *gin.Context) {
-	return
-}
+//	func index(c *gin.Context) {
+//		return
+//	}
 func healthCheck(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "status ok",

@@ -65,3 +65,14 @@ func (conn *HoleRequests) GetAllHolesByUID(UID int) ([]models.Hole, error) {
 	return utils.GetHoleFromRows(rows)
 
 }
+
+func (conn *HoleRequests) DeleteHole(HID int) (int, error) {
+	queryString := `DELETE FROM hole WHERE HID = ($1)`
+	err := conn.db.QueryRow(queryString, HID).Err()
+	if err != nil {
+		fmt.Printf("%s", err)
+		return 500, err
+	}
+
+	return 200, nil
+}

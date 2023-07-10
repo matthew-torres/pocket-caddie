@@ -20,6 +20,7 @@ func (conn *RoundRequests) Init(db *sql.DB) {
 func (conn *RoundRequests) NewRound(round models.Round) (int, error) {
 
 	queryString := `INSERT INTO round(UID, Course, Score, Duration, WeatherCond, Date) VALUES ($1, $2, $3, $4, $5, $6)`
+	fmt.Printf("%f", round.Duration)
 	err := conn.db.QueryRow(queryString, round.UID, round.Course, round.Score, round.Duration, round.WeatherCond, time.Now()).Err()
 	if err != nil {
 		fmt.Printf("%s", err)
@@ -33,8 +34,8 @@ func (conn *RoundRequests) GetRoundByID(roundID int) (models.Round, error) {
 	var round models.Round
 
 	// prob can make a view and view model for round
-	queryString := `SELECT id, uid, course, score FROM round WHERE id = ($1)`
-	err := conn.db.QueryRow(queryString, roundID).Scan(&round.ID, &round.UID, &round.Course, &round.Score)
+	queryString := `SELECT id, uid, course, score, duration FROM round WHERE id = ($1)`
+	err := conn.db.QueryRow(queryString, roundID).Scan(&round.ID, &round.UID, &round.Course, &round.Score, &round.Duration)
 	if err == sql.ErrNoRows {
 		fmt.Printf("%s", err)
 		return round, err

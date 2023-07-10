@@ -1,9 +1,9 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-//import useStyles from "./styles";
 import useRowsData from '../../retrieveRoundData';
+import { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 
-//const classes = useStyles();
 const columns = [
     { field: 'id', headerName: 'ID', width: 70, headerClassName: 'white-header', cellClassName: 'white-text' },
     { field: 'date', headerName: 'Date', width: 200, headerClassName: 'white-header', cellClassName: 'white-text' },
@@ -13,27 +13,33 @@ const columns = [
     { field: 'weatherCond', headerName: 'Weather Condition', width: 130, headerClassName: 'white-header', cellClassName: 'white-text' },
   ];
 
-export default function DataTable() {
-
-    const rows = useRowsData(11);
-
+  
+  export default function DataTable() {
+    const theme = useTheme();
+    const rows = useRowsData(0);
+    const [selectionModel, setSelectionModel] = useState([]);
+  
     return (
-    <React.Fragment>
-      <div id='user-round-table' style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          
-          //className={classes.root}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-        />
-      </div>
-    </React.Fragment>
+      <React.Fragment>
+        <h1>hello</h1>
+        <div id="user-round-table" style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            onSelectionModelChange={(newSelection) => {
+              setSelectionModel(newSelection.selectionModel);
+            }}
+            selectionModel={selectionModel}
+            hideFooterPagination
+            checkboxSelection
+          />
+        </div>
+        <div>
+        {selectionModel.map((val) => (
+          <h1>{val}</h1>
+        ))}
+        </div>
+      </React.Fragment>
     );
-}
+  }
+  

@@ -3,13 +3,14 @@ import { createTheme } from "@mui/material/styles";
 export const globalTheme = createTheme({
   palette: {
     primary: {
-      main: `#942bc4`,
+      main: `#6d2b94`,
     },
     background: {
-      default: '#333333', // Set the default background color to a darker grey
+      default: '#242424', // Set the default background color to a darker grey
     },
     text: {
       primary: '#FFFFFF', // Set the font color to white
+      secondary: '#606060'
     },
   },
   components: {
@@ -31,12 +32,12 @@ export const globalTheme = createTheme({
       styleOverrides: {
         root: {
           '&.Mui-selected': {
-            backgroundColor: '#942bc4', // Set the background color of the selected MenuItem
-            color: '#FFFFFF', // Set the text color of the selected MenuItem
+            backgroundColor: '#6d2b94', // Set the background color of the selected MenuItem
+            color: '#606060', // Set the text color of the selected MenuItem
           },
           '&:hover': {
-            backgroundColor: '#942bc4', // Set the background color of the MenuItem on hover
-            color: '#FFFFFF', // Set the text color of the MenuItem on hover
+            backgroundColor: '#6d2b94', // Set the background color of the MenuItem on hover
+            color: '#606060', // Set the text color of the MenuItem on hover
           },
         },
       },
@@ -44,7 +45,21 @@ export const globalTheme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: '#FFFFFF', // Set the label color to white
+          color: '#606060', // Set the label color to white
+        },
+        '&:hover': {
+          backgroundColor: '#6d2b94', // Set the background color of the MenuItem on hover
+          color: '#6d2b94', // Set the text color of the MenuItem on hover
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#606060', // Set the color of the checkbox
+          // '&.Mui-checked': {
+          //   color: '#FFFFFF', // Set the color of the checked checkbox
+          // },
         },
       },
     },
