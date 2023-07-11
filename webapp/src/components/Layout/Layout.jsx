@@ -12,7 +12,7 @@ import ParScoreDist from '../ParScoreDist/ParScoreDist';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { height } from '@mui/system';
+import { height, margin } from '@mui/system';
 
 
 
@@ -45,7 +45,7 @@ export default function Layout() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '-950px auto', marginTop: '-950px auto' }}>
-              <Typography variant="h3" color={theme.palette.text.secondary} fontWeight="bold" sx={{ m: 'margin-left' }}>Dashboard</Typography>
+              <Typography variant="h3" color={theme.palette.text.primary} fontWeight="bold" sx={{ m: 'margin-left' }}>Dashboard</Typography>
             </div>
               {/* Header */}
               {/* GRID & CHARTS */}
@@ -60,6 +60,7 @@ export default function Layout() {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 300,
+                    width: 875,
                     background: theme.palette.background.default
                   }}
                 >
@@ -67,8 +68,8 @@ export default function Layout() {
                 </Paper>
               </Grid>
               {/* Avg score */}
-              {/* <Grid item xs={12} md={8} lg={5}> */}
-              <Grid item xs='true' md='true' lg='true'>
+              <Grid item xs={12} md={8} lg={5}>
+              {/* <Grid item xs='true' md='true' lg='true'> */}
                 <Paper
                   sx={{
                     p: -4,
@@ -83,8 +84,8 @@ export default function Layout() {
                 </Paper>
               </Grid>
               {/* Average to Par */}
-              {/* <Grid item xs={12} md={8} lg={5}> */}
-              <Grid item xs='true' md='true' lg='true'>
+              <Grid item xs={12} md={8} lg={5}>
+              {/* <Grid item xs='true' md='true' lg='true'> */}
                 <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 240, width: 415, background: theme.palette.background.default}}>
                   <ParScoreDist />
                 </Paper>

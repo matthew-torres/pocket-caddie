@@ -141,6 +141,16 @@ export default function RoundView() {
     }}
     rowSelectionModel={selectionModel}
     onCellDoubleClick={handleCellDoubleClick}
+    sx={{
+      // boxShadow: 2,
+      // border: 2,
+      // borderColor: 'primary.light',
+      color: theme.palette.text.secondary,
+      
+      '& .MuiDataGrid-cell:hover': {
+        color: 'primary.main',
+      },
+    }}
 
     initialState={{
       pagination: {
