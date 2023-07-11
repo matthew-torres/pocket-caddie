@@ -9,6 +9,11 @@ import { globalTheme } from "../../theme";
 import Alert from '@mui/material/Alert';
 import Navbar from "../../global/Navbar"
 import ParScoreDist from '../ParScoreDist/ParScoreDist';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { height } from '@mui/system';
+
 
 
 
@@ -42,35 +47,50 @@ export default function Layout() {
             <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '-950px auto', marginTop: '-950px auto' }}>
               <Typography variant="h3" color={theme.palette.text.secondary} fontWeight="bold" sx={{ m: 'margin-left' }}>Dashboard</Typography>
             </div>
-
-            {/* <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                p: 5,
-                mt: -4,
-                ml: -4,
-              }}
-            > */}
               {/* Header */}
               {/* GRID & CHARTS */}
-              <Box display="inline-grid" gridTemplateColumns="repeat(12,1fr)" gridAutoRows="400px" gap="10px" justifyContent='left'>
-                <Box gridColumn="span 4" display="flex" alignItems="center" justifyContent="center">
-                  <RoundsListScore></RoundsListScore>
-                </Box>
-                <Box gridColumn="span 4" display="flex" alignItems="center" justifyContent="center">
-                  <ScoreBarChart></ScoreBarChart>
-                </Box>
-                {/* <Box gridColumn="span 4" display="flex" alignItems="center" justifyContent="center">
-                  <CreateRound></CreateRound>
-                </Box> */}
-                <Box gridColumn="span 4" display="flex" alignItems="center" justifyContent="center">
-                  <ParScoreDist/>
-                </Box>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3} display='flex'>
+              {/* RoundScoreList */}
+              <Grid item xs={12} md={8} lg={9}>
 
-              </Box>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 300,
+                    background: theme.palette.background.default
+                  }}
+                >
+                  <RoundsListScore/>
+                </Paper>
+              </Grid>
+              {/* Avg score */}
+              {/* <Grid item xs={12} md={8} lg={5}> */}
+              <Grid item xs='true' md='true' lg='true'>
+                <Paper
+                  sx={{
+                    p: -4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                    width: 415,
+                    background: theme.palette.background.default
+                  }}
+                >
+                  <ScoreBarChart />
+                </Paper>
+              </Grid>
+              {/* Average to Par */}
+              {/* <Grid item xs={12} md={8} lg={5}> */}
+              <Grid item xs='true' md='true' lg='true'>
+                <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 240, width: 415, background: theme.palette.background.default}}>
+                  <ParScoreDist />
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
             {/* </Box> */}
           </div>
         </ThemeProvider>

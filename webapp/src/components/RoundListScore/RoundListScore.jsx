@@ -67,7 +67,7 @@ export default function RoundsListScore() {
     return (
     <ThemeProvider theme={globalTheme}>
       <React.Fragment>
-        <Box display="flex" flexDirection="column" height='100%' width="150%">
+        {/* <Box display="flex" flexDirection="column" height='100%' width="150%"> */}
           <DataGrid
             rows={rows}
             columns={columns}
@@ -90,7 +90,7 @@ export default function RoundsListScore() {
             <IconButton type="submit" variant='outlined' onClick={handleDelete} color="primary"><DeleteIcon/></IconButton>
             <IconButton type="submit" variant='outlined' onClick={handleAdd} color="primary"><AddIcon/></IconButton>
           </Box>
-        </Box>
+        {/* </Box> */}
         <Dialog open={open} onClose={handleClose} PaperProps={{sx: {backgroundColor: theme.palette.background.default }}}>
           <CreateRound/>
         </Dialog>
