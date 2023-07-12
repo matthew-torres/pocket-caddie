@@ -54,6 +54,21 @@ func GetStrokeFromRows(rows *sql.Rows) ([]models.Stroke, error) {
 	return strokes, nil
 }
 
+func GetClubsFromRows(rows *sql.Rows) ([]models.Club, error) {
+	clubs := []models.Club{}
+	for rows.Next() {
+		var club models.Club
+		//var tags string
+		err := rows.Scan(&club.CLID, &club.Brand, &club.Name, &club.Type)
+		if err != nil {
+			return nil, err
+		}
+		clubs = append(clubs, club)
+
+	}
+	return clubs, nil
+}
+
 func HashPassword(user *models.User, password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err != nil {
