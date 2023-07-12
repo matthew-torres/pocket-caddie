@@ -29,50 +29,6 @@ const columns = [
     { field: 'date', headerName: 'Date', width: 200, val: (params) => moment(params.value).format('MM-DD-YYYY'),},
   ];
 
-  // function customCheckbox(theme) {
-  //   return {
-  //     '& .MuiCheckbox-root ': {
-  //       width: 16,
-  //       height: 16,
-  //       backgroundColor: 'transparent',
-  //       border: `1px solid ${
-  //         theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'
-  //       }`,
-  //       borderRadius: 2,
-  //     },
-  //     '& .MuiCheckbox-root  path': {
-  //       display: 'none',
-  //     },
-  //     // '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
-  //     //   backgroundColor: '#1890ff',
-  //     //   borderColor: '#1890ff',
-  //     // },
-  //     // '& .MuiCheckbox-root.Mui-checked .MuiIconButton-label:after': {
-  //     //   position: 'absolute',
-  //     //   display: 'table',
-  //     //   border: '2px solid #fff',
-  //     //   borderTop: 0,
-  //     //   borderLeft: 0,
-  //     //   transform: 'rotate(45deg) translate(-50%,-50%)',
-  //     //   opacity: 1,
-  //     //   transition: 'all .2s cubic-bezier(.12,.4,.29,1.46) .1s',
-  //     //   content: '""',
-  //     //   top: '50%',
-  //     //   left: '39%',
-  //     //   width: 5.71428571,
-  //     //   height: 9.14285714,
-  //     // },
-  //     // '& .MuiCheckbox-root.MuiCheckbox-indeterminate .MuiIconButton-label:after': {
-  //     //   width: 8,
-  //     //   height: 8,
-  //     //   backgroundColor: '#1890ff',
-  //     //   transform: 'none',
-  //     //   top: '39%',
-  //     //   border: 0,
-  //     // },
-  //   };
-  // }
-
 export default function RoundsListScore() {
 
     const theme = useTheme();
@@ -138,7 +94,7 @@ export default function RoundsListScore() {
         My Rounds 
       </Typography>
       <TableContainer component={Paper} sx={{ backgroundColor: theme.palette.background.default }}>
-        <Table>
+        <Table stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
@@ -156,7 +112,7 @@ export default function RoundsListScore() {
                 />
               </TableCell>
               {columns.map((column) => (
-                <TableCell key={column.field}>{column.headerName}</TableCell>
+                <TableCell key={column.field} sx={{ fontWeight: "bold" }}>{column.headerName} </TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -169,9 +125,9 @@ export default function RoundsListScore() {
                 {columns.map((column) => {
                   if (column.field === 'date') {
                     const formattedDate = moment(row.date).format('MM-DD-YYYY');
-                    return <TableCell key={column.field}>{formattedDate}</TableCell>;
+                    return <TableCell key={column.field} sx={{ color: theme.palette.text.secondary }}>{formattedDate} </TableCell>;
                   } else {
-                    return <TableCell key={column.field}>{row[column.field]}</TableCell>;
+                    return <TableCell key={column.field} sx={{ color: theme.palette.text.secondary }}>{row[column.field]} </TableCell>;
                   }
                 })}
               </TableRow>
@@ -180,40 +136,6 @@ export default function RoundsListScore() {
         </Table>
       </TableContainer>
 
-
-          {/* <DataGrid
-            rows={rows}
-            columns={columns}
-            onRowSelectionModelChange={(newSelection) => {
-              setSelectionModel(newSelection);
-            }}
-            sx={{
-              boxShadow: 2,
-              // border: 2,
-              borderColor: theme.palette.background.secondary,
-              color: theme.palette.text.secondary,
-              columnRuleColor: theme.palette.text.primary,
-
-
-              '& .MuiDataGrid-cell:hover': {
-                color: 'primary.main',
-              },
-
-              // ...customCheckbox(theme)
-
-            }}
-            // hideFooter
-            rowSelectionModel={selectionModel}
-            onCellDoubleClick={handleCellDoubleClick}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-            
-          /> */}
           <Box display="flex" justifyContent="flex-start">
             <IconButton type="submit" variant='outlined' onClick={handleDelete} color="primary"><DeleteIcon/></IconButton>
             <IconButton type="submit" variant='outlined' onClick={handleAdd} color="primary"><AddIcon/></IconButton>

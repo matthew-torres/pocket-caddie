@@ -9,6 +9,7 @@ import { globalTheme } from "../../theme";
 import Alert from '@mui/material/Alert';
 import Navbar from "../../global/Navbar"
 import ParScoreDist from '../ParScoreDist/ParScoreDist';
+import MyBag from '../MyBag/MyBag';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -66,6 +67,7 @@ export default function Layout() {
                 >
                   <RoundsListScore/>
                 </Paper>
+                {/* <Grid item xs={12} md={8} lg={5}> */}
               </Grid>
               {/* Avg score */}
               <Grid item xs={12} md={8} lg={5}>
@@ -88,6 +90,11 @@ export default function Layout() {
               {/* <Grid item xs='true' md='true' lg='true'> */}
                 <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 240, width: 415, background: theme.palette.background.default}}>
                   <ParScoreDist />
+                </Paper>
+              </Grid>
+              <Grid item xs={'auto'} md={8} lg={5}>
+                <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 280, width: 415, background: theme.palette.background.default}}>
+                  <MyBag />
                 </Paper>
               </Grid>
             </Grid>
