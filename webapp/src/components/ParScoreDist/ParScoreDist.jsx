@@ -10,7 +10,7 @@ export default function ParScoreDist() {
     const theme = useTheme();
     
     const data = Object.keys(rows).map((par) => ({
-        par,
+        par: "Par " + par,
         avg: rows[par],
       }));
 

@@ -26,7 +26,7 @@ const columns = [
     { field: 'course', headerName: 'Course', width: 130},
     { field: 'score', headerName: 'Score', width: 13},
     { field: 'weatherCond', headerName: 'Weather Condition', width: 130},
-    { field: 'date', headerName: 'Date', width: 200, val: (params) => moment(params.value).format('MM-DD-YYYY'),},
+    { field: 'date', headerName: 'Date', width: 200, val: (params) => params.value.toLocaleDateString()},
   ];
 
 export default function RoundsListScore() {

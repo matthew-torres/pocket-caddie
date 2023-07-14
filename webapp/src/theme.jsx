@@ -11,7 +11,8 @@ export const globalTheme = createTheme({
     },
     text: {
       primary: '#FFFFFF', // Set the font color to white
-      secondary: '#606060'
+      secondary: "#676767",
+      ternary: '#606060'
     },
   },
   components: {

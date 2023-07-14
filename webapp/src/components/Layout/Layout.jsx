@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from "../RoundsList/RoundsList";
 import ScoreBarChart from "../ScoreBarChart/ScoreBarChart";
+import ScoreLineChart from "../ScoreLineChart/ScoreLineChart";
 import CreateRound from "../NewRound/NewRound";
 import { Box, Typography, Card, CardContent } from "@mui/material";
 import { ThemeProvider, useTheme } from '@mui/material';
@@ -13,7 +14,6 @@ import MyBag from '../MyBag/MyBag';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { height, margin } from '@mui/system';
 
 
 
@@ -38,7 +38,7 @@ export default function Layout() {
 
     return (
       <ThemeProvider theme={globalTheme}>
-          <div style={{ flexDirection: 'column', minHeight: '100vh' }}>
+          <div style={{ flexDirection: 'column', minHeight: '100vh', minWidth: '100vh' }}>
             <Navbar />
 
             <div style={{ marginTop: '100px', marginLeft: '200px' }}>
@@ -50,8 +50,8 @@ export default function Layout() {
             </div>
               {/* Header */}
               {/* GRID & CHARTS */}
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3} display='flex'>
+          <Container maxWidth sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3} display='flex' >
               {/* RoundScoreList */}
               <Grid item xs={12} md={8} lg={9}>
 
@@ -95,6 +95,11 @@ export default function Layout() {
               <Grid item xs={'auto'} md={8} lg={5}>
                 <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 280, width: 415, background: theme.palette.background.default}}>
                   <MyBag />
+                </Paper>
+              </Grid>
+              <Grid item xs={'auto'} md={8} lg={5}>
+                <Paper sx={{ p: -4, display: 'flex', flexDirection: 'column', height: 280, width: 415, background: theme.palette.background.default}}>
+                  <ScoreLineChart />
                 </Paper>
               </Grid>
             </Grid>
