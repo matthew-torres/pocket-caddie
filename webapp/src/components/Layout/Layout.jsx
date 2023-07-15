@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DataTable from "../RoundsList/RoundsList";
 import ScoreBarChart from "../ScoreBarChart/ScoreBarChart";
 import ScoreLineChart from "../ScoreLineChart/ScoreLineChart";
+import UserInfo from "../UserInfo/UserInfo";
 import CreateRound from "../NewRound/NewRound";
 import { Box, Typography, Card, CardContent } from "@mui/material";
 import { ThemeProvider, useTheme } from '@mui/material';
@@ -82,7 +83,8 @@ export default function Layout() {
                     background: theme.palette.background.default
                   }}
                 >
-                  <ScoreBarChart />
+                  {/* <ScoreBarChart /> */}
+                  <UserInfo/>
                 </Paper>
               </Grid>
               {/* Average to Par */}

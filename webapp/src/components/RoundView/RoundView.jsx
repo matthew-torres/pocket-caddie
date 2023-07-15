@@ -47,7 +47,6 @@ export default function RoundView() {
   const { rid } = useParams();
   const theme = useTheme();
   let rows = useRowsData(rid);
-  console.log(rows)
 
   useEffect(() => {
     axios
