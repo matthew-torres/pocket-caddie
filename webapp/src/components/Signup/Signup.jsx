@@ -127,7 +127,7 @@ export default function Signup() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
                 {failure && <Alert severity="error">Email already exists</Alert>}
                 <Grid container>
