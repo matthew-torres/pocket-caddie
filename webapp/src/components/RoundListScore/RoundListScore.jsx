@@ -31,6 +31,7 @@ const columns = [
 
 export default function RoundsListScore() {
 
+    const url = import.meta.env.VITE_API_URL
     const theme = useTheme();
     // const history = useHistory();
     let rows = useRowsData(0);
@@ -41,7 +42,7 @@ export default function RoundsListScore() {
       if (selectionModel.length === 1) {
         event.preventDefault();
         console.log(sessionStorage.getItem('token'))
-        axios.delete('http://localhost:8080/api/round/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.delete(url+'api/round/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             console.log(response)
             window.location.reload();
@@ -50,7 +51,7 @@ export default function RoundsListScore() {
             console.log(error)
         })
     } else {
-      axios.delete('http://localhost:8080/api/rounds', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+      axios.delete(url+'api/rounds', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             console.log(response)
             

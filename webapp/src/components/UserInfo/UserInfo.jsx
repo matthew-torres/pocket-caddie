@@ -13,6 +13,8 @@ import axios from 'axios';
 
 
 export default function UserInfo() {
+
+    const url = import.meta.env.VITE_API_URL
     const [initUser, setInitUser] = useState(null);
     const [rounds, setRounds] = useState([]);
     const [isOpen, setOpenDialog] = useState(false)
@@ -22,7 +24,7 @@ export default function UserInfo() {
     useEffect(() => {
         const fetchInitUser = async () => {
             try {
-              const response = await axios.get('http://localhost:8080/api/user', {
+              const response = await axios.get(url+'api/user', {
                 headers: {
                   Authorization: `Bearer ${sessionStorage.getItem('token')}`,
                 },
@@ -40,7 +42,7 @@ export default function UserInfo() {
   
       const fetchRounds = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/api/user/rounds', {
+          const response = await axios.get(url+'api/user/rounds', {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem('token')}`,
             },

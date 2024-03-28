@@ -28,6 +28,7 @@ const columns = [
 
 export default function MyBag() {
 
+    const url = import.meta.env.VITE_API_URL
     const theme = useTheme();
     let rows = useRowsData();
     const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function MyBag() {
         if (selectionModel.length === 1) {
           event.preventDefault();
           console.log(sessionStorage.getItem('token'))
-          axios.delete('http://localhost:8080/api/user/club/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+          axios.delete(url+'api/user/club/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
           .then(response => { 
               console.log(response)
               window.location.reload();
@@ -53,7 +54,7 @@ export default function MyBag() {
               console.log(error)
           })
       } else {
-        axios.delete('http://localhost:8080/api/user/clubs', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.delete(url+'api/user/clubs', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
           .then(response => { 
               console.log(response)
               window.location.reload();

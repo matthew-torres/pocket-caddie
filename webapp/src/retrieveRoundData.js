@@ -3,12 +3,14 @@ import moment from 'moment';
 import axios from 'axios';
 
 const useRowsData = (userId) => {
+
+  const url = import.meta.env.VITE_API_URL
   const [rows, setRows] = useState([]);
 
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/user/rounds', {
+      .get(url+'api/user/rounds', {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },

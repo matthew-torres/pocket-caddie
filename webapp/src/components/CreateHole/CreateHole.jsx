@@ -15,6 +15,7 @@ const boolVals = [
 
 export default function CreateHole() {
 
+    const url = import.meta.env.VITE_API_URL  
     const [success, setSuccess] = useState(false);
     const { rid } = useParams();
     const theme = useTheme();
@@ -48,7 +49,7 @@ export default function CreateHole() {
     const handleSubmit = (event) => {
         event.preventDefault(); // JSON object with the form data, make axios request to api
         console.log(formData)
-        axios.post('http://localhost:8080/api/round/'+ rid +'/newhole', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.post(url+'api/round/'+ rid +'/newhole', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             setSuccess(true);
             window.location.reload();

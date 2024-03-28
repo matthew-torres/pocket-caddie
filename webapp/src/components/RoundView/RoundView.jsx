@@ -41,6 +41,8 @@ const columns = [
 ];
 
 export default function RoundView() {
+
+  const url = import.meta.env.VITE_API_URL
   const [roundData, setRoundData] = useState(null);
   const [selectionModel, setSelectionModel] = useState([]);
   const [open, setOpen] = useState(false);
@@ -50,7 +52,7 @@ export default function RoundView() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/round/' + rid, {
+      .get('${import.meta.env.VITE_API_URLapi/round/}' + rid, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
@@ -73,7 +75,7 @@ export default function RoundView() {
   const handleDelete = (event) => {
     if (selectionModel.length === 1) {
       event.preventDefault();
-      axios.delete('http://localhost:8080/api/round/' + rid + '/holes/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+      axios.delete(url+'api/round/' + rid + '/holes/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
       .then(response => { 
           console.log(response)
           window.location.reload();
@@ -82,7 +84,7 @@ export default function RoundView() {
           console.log(error)
       })
   } else {
-    axios.delete('http://localhost:8080/api/round/' + rid + '/holes', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+    axios.delete(url+'api/round/' + rid + '/holes', {data: { selectionModel: selectionModel },headers: {'Content-Type': 'application/json', Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
       .then(response => { 
           console.log(response)
           window.location.reload();

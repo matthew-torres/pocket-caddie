@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useRowsData = () => {
+
+  const url = import.meta.env.VITE_API_URL
   const [rows, setRows] = useState([]);
 
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/user/clubs', {
+      .get(url+'api/user/clubs', {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },

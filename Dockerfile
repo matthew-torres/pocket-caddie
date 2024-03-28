@@ -1,7 +1,6 @@
-FROM golang:1.18.6
+FROM golang:1.19
 
 ENV GO111MODULE=on
-ENV POSTGRES_CONNECTION_STRING="postgres://byfbpxur:4OnVDwNgvQO3j2eyvzRacHTM1kRCCxdf@lallah.db.elephantsql.com/byfbpxur"
 
 RUN mkdir /app
 WORKDIR /app
@@ -13,6 +12,11 @@ COPY go.sum .
 RUN go mod download
 # COPY the source code as the last step
 COPY . .
+#COPY .env .
+
+ENV POSTGRES_CONNECTION_STRING=""
+ENV TOKEN_HOUR_LIFESPAN=24
+ENV API_SECRET=""
 
 # Build the binary
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build

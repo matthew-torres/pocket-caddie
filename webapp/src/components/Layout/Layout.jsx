@@ -36,7 +36,6 @@ export default function Layout() {
         setSuccess(true);
       }
     }, [location]);
-
     return (
       <ThemeProvider theme={globalTheme}>
           <div style={{ flexDirection: 'column', minHeight: '100vh', minWidth: '100vh' }}>

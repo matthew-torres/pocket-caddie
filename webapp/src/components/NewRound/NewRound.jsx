@@ -14,6 +14,7 @@ const weatherConditions = [
 
 export default function CreateRound() {
 
+    const url = import.meta.env.VITE_API_URL
     const [success, setSuccess] = useState(false);
     const theme = useTheme();
 
@@ -50,7 +51,7 @@ export default function CreateRound() {
         event.preventDefault();
         console.log(formData); // JSON object with the form data, make axios request to api
         console.log(formData.Duration)
-        axios.post('http://localhost:8080/api/round/newround', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.post(url+'api/round/newround', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             console.log(response)
             setSuccess(true);

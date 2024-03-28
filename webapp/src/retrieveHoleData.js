@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useRowsDataHoles = () => {
+
+  const url = import.meta.env.VITE_API_URL
   const [rows, setRows] = useState([]);
 
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/round/holes', {
+      .get(url+'api/round/holes', {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },

@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useUserRowsData = () => {
+
+  const url = import.meta.env.VITE_API_URL 
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/user', {
+      .get(url+'api/user', {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },

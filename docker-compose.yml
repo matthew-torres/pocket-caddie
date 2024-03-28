@@ -1,0 +1,12 @@
+version: '1'
+services:
+  backend:
+    image: pocket-caddie:1.2
+    # build: .
+    ports:
+      - "8080:8080"
+  frontend:
+    image: pocket-caddie-frontend:1.2
+    #build: ./webapp
+    ports:
+      - "8000:8000"
