@@ -18,7 +18,7 @@ jobs:
           node-version: "14"
       - name: Install dependencies
         working-directory: ./webapp
-        run: npm install
+        run: npm install --force
       - name: Run tests
         working-directory: ./webapp
         run: npm run test
