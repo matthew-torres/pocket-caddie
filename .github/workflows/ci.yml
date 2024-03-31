@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "14"
+      - run: ls
       - run: cd webapp
       - run: npm install
       - run: npm run test
