@@ -28,7 +28,7 @@ const columns = [
 
 export default function MyBag() {
 
-    const url = import.meta.env.VITE_API_URL
+    const url = process.env.VITE_API_URL;
     const theme = useTheme();
     let rows = useRowsData();
     const [open, setOpen] = useState(false);
@@ -44,7 +44,6 @@ export default function MyBag() {
       const handleDelete = (event) => {
         if (selectionModel.length === 1) {
           event.preventDefault();
-          console.log(sessionStorage.getItem('token'))
           axios.delete(url+'api/user/club/'+selectionModel[0], {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
           .then(response => { 
               console.log(response)

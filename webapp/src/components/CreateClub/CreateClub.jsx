@@ -21,7 +21,7 @@ const boolVals = [
 
 export default function CreateBag() {
 
-    const url = import.meta.env.VITE_API_URL
+    const url = process.env.VITE_API_URL;
     const [success, setSuccess] = useState(false);
     const { rid } = useParams();
     const theme = useTheme();
