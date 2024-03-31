@@ -10,8 +10,8 @@ export default function ParScoreDist() {
     const theme = useTheme();
     
     const data = Object.keys(rows).map((par) => ({
-        par,
-        score: rows[par],
+        par: "Par " + par,
+        avg: rows[par],
       }));
 
 
@@ -28,7 +28,7 @@ export default function ParScoreDist() {
                   left: 15,
                   bottom: 5,
               }}
-              label="Score by Par"
+              label="Average by Par"
               barGap={1}
               >
               <CartesianGrid strokeDasharray="3 3" />
@@ -36,12 +36,12 @@ export default function ParScoreDist() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="score" fill={theme.palette.primary.main} barSize={50} />
-              <Label value="Score by Par" position="top" />
+              <Bar dataKey="avg" fill={theme.palette.primary.main} barSize={50} />
+              <Label value="Average by Par" position="top" />
               </BarChart>
               
             </ResponsiveContainer>
-            <h5 style={{ color: theme.palette.text.secondary, textAlign: 'center', margin:'0px'} }>Score to Par </h5>
+            <h5 style={{ color: theme.palette.text.secondary, textAlign: 'center', margin:'0px'} }>Average to Par </h5>
         </React.Fragment>
     </ThemeProvider>
     );

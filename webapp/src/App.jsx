@@ -13,7 +13,7 @@ import RoundView from './components/RoundView/RoundView';
 
 
 export default function App () {
-  // const [theme, colorMode] = useMode();
+
   const [isSidebar, setIsSidebar] = useState(true);
   return (
 

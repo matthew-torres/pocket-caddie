@@ -10,24 +10,27 @@ import { useParams } from 'react-router-dom';
 
 
 const boolVals = [
-    {value: true, label: 'True'}, {value: false, label: 'False'}
+    {value: 'Driver', label: 'Driver'}, {value: "3 Wood", label: '3 Wood'}, {value: "5 Wood", label: '5 Wood'},
+    {value: "7 Wood", label: '7 Wood'}, {value: "3 Hybrid", label: '3 Hybrid'}, {value: "4 Hybrid", label: '3 Hybrid'},
+    {value: "2 Iron", label: '2 Iron'}, {value: "3 Iron", label: '3 Iron'}, {value: "4 Iron", label: '4 Iron'},
+    {value: "5 Iron", label: '5 Iron'}, {value: "6 Iron", label: '6 Iron'}, {value: "7 Iron", label: '7 Iron'},
+    {value: "8 Iron", label: '8 Iron'}, {value: "9 Iron", label: '9 Iron'}, {value: "Attack Wedge", label: 'Attack Wedge'},
+    {value: "Gap Wedge", label: 'Gap Wedge'}, {value: "Sand Wedge", label: 'Sand Wedge'}, {value: "Lob Wedge", label: 'Lob Wedge'},
+    {value: "Putter", label: 'Putter'}
 ]
 
-export default function CreateHole() {
+export default function CreateBag() {
 
-    const url = import.meta.env.VITE_API_URL  
+    const url = process.env.VITE_API_URL;
     const [success, setSuccess] = useState(false);
     const { rid } = useParams();
     const theme = useTheme();
 
     const [formData, setFormData] = useState({
         // add uid to request based on user
-        HoleNumber: 0,
-        Score: 0,
-        Par: 0,
-        GIR: false,
-        FairwayHit: false,
-        Putts: 0,
+        Type: "",
+        Brand: "",
+        Name: "",
     });
 
     const handleChange = (event) => {
@@ -49,7 +52,7 @@ export default function CreateHole() {
     const handleSubmit = (event) => {
         event.preventDefault(); // JSON object with the form data, make axios request to api
         console.log(formData)
-        axios.post(url+'api/round/'+ rid +'/newhole', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
+        axios.post(url+'api/user/club', formData, {headers: {'Content-Type': 'application/json',Authorization: `Bearer ${sessionStorage.getItem('token')}`}})
         .then(response => { 
             setSuccess(true);
             window.location.reload();
@@ -73,32 +76,29 @@ export default function CreateHole() {
         <div>
             <TextField
               required
-              id="filled-HoleNumber"
-              name="HoleNumber"
-              label="Hole Number"
-              type='number'
+              id="filled-Brand"
+              name="Brand"
+              label="Brand"
               variant="filled"
-              value={formData.holeNumber}
+              value={formData.Brand}
               onChange={handleChange}
             />
             <TextField
               required
-              id="filled-Par"
-              name="Par"
-              type="number"
-              label="Par"
+              id="filled-Name"
+              name="Name"
+              label="Name"
               variant="filled"
-              value={formData.par}
+              value={formData.Name}
               onChange={handleChange}
             />
             <TextField
                 required
-                id="filled-GIR"
-                label="GIR"
-                name="GIR"
+                id="filled-Type"
+                label="Type"
+                name="Type"
                 variant="filled"
-                type='bool'
-                value={formData.GIR}
+                value={formData.Type}
                 onChange={handleChange}
                 SelectProps={{
                     MenuProps: {
@@ -127,62 +127,7 @@ export default function CreateHole() {
                 ))}
             </TextField>
 
-            <TextField
-              required
-              id="filled-FairwayHit"
-              name="FairwayHit"
-              type="bool"
-              label="Fairway Hit"
-              variant='filled'
-              value={formData.FairwayHit}
-              onChange={handleChange}
-              SelectProps={{
-                MenuProps: {
-                PaperProps: {
-                    sx: {
-                    backgroundColor: theme.palette.background.default,
-                    },
-                },
-                sx: {
-                    '& .Mui-selected': {
-                    backgroundColor: theme.palette.primary.main,
-                    color: '#transparent',
-                    },
-                },
-                },
-                sx: {
-                textAlign: 'left',
-                },
-            }}
-            select
-            >
-            {boolVals.map((cond) => (
-                <MenuItem key={String(cond.value)} value={cond.value}>
-                {cond.label}
-                </MenuItem>
-            ))}
-
-              </TextField>
-            <TextField
-              required
-              id="filled-Putts"
-              name="Putts"
-              type="number"
-              label="Putts"
-              variant='filled'
-              value={formData.Putts}
-              onChange={handleChange}
-              />
-            <TextField
-              required
-              id="filled-Score"
-              name="Score"
-              type="number"
-              label="Score"
-              variant='filled'
-              value={formData.Score}
-              onChange={handleChange}
-              />
+            
         </div>
             <Button type="submit" variant='outlined' onClick={handleSubmit} color="primary">Add</Button>
             {success && <Alert severity="success" onClose={() => {setSuccess(false)}}>Round successfully added!</Alert>}

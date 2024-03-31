@@ -41,6 +41,8 @@ func main() {
 	holeController.Init(db)
 	strokeController := controllers.StrokeController{}
 	strokeController.Init(db)
+	clubController := controllers.ClubController{}
+	clubController.Init(db)
 
 	// r.GET("/", index)
 	r.GET("/healthcheck", healthCheck)
@@ -72,6 +74,12 @@ func main() {
 	protected.GET("/user/strokes", strokeController.GetStrokesByUID)
 	protected.GET("/round/strokes/:rid", strokeController.GetStrokesByRID)
 	protected.GET("/round/hole/strokes/:hid", strokeController.GetStrokesByHID)
+
+	protected.POST("/user/club", clubController.NewClub)
+	protected.GET("/user/clubs", clubController.GetAllClubsByUID)
+	protected.GET("/user/club/:clid", clubController.GetClub)
+	protected.DELETE("/user/clubs", clubController.GetAllClubsByUID)
+	protected.DELETE("/user/club/:clid", clubController.GetClub)
 
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

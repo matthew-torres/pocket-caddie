@@ -18,6 +18,7 @@ import { globalTheme } from '../../theme';
 
 export default function Signup() {
     
+      const url = import.meta.env.VITE_API_URL
       const [failure, setFailure] = useState(false);
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,7 +32,7 @@ export default function Signup() {
             handicap: parseInt(data.get('handicap'))
         };
 
-       axios.post('http://localhost:8080/newuser', userLogin,{headers: {'Content-Type': 'application/json'}})
+       axios.post(url+'newuser', userLogin,{headers: {'Content-Type': 'application/json'}})
        .then(response => { 
             console.log(response)
             // Storing the token in session storage
@@ -127,7 +128,7 @@ export default function Signup() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
                 {failure && <Alert severity="error">Email already exists</Alert>}
                 <Grid container>

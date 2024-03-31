@@ -7,10 +7,12 @@ export const globalTheme = createTheme({
     },
     background: {
       default: '#242424', // Set the default background color to a darker grey
+      secondary: '#FFFFFF',
     },
     text: {
       primary: '#FFFFFF', // Set the font color to white
-      secondary: '#606060'
+      secondary: "#676767",
+      ternary: '#606060'
     },
   },
   components: {
@@ -61,7 +63,35 @@ export const globalTheme = createTheme({
           //   color: '#FFFFFF', // Set the color of the checked checkbox
           // },
         },
+        checkbox: {
+          '&.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
+            backgroundColor: '#1890ff',
+            borderColor: '#1890ff',
+          },
+        },
       },
     },
+    // MuiDataGrid: {
+    //   styleOverrides: {
+    //     root: {
+    //       // Custom styles for the DataGrid container
+    //       backgroundColor: '606060',
+    //     },
+    //     header: {
+    //       // Custom styles for the header cells
+    //       backgroundColor: '606060',
+    //       color: '606060',
+    //     },
+    //     cell: {
+    //       // Custom styles for the data cells
+    //       backgroundColor: '606060',
+    //       color: '606060',
+    //     },
+    //     checkbox: {
+    //       // Custom styles for the checkboxes
+    //       color: '606060',
+    //     },
+    //   },
+    // },
   },
 });

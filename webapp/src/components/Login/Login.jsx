@@ -21,6 +21,8 @@ import { globalTheme } from '../../theme';
 // const defaultTheme = createTheme();
 export default function Login() {
     
+      const url = import.meta.env.VITE_API_URL
+      console.log(url)
       const [failure, setFailure] = useState(false);
       const theme = useTheme()
       const handleSubmit = (event) => {
@@ -31,10 +33,11 @@ export default function Login() {
             email: data.get('email'),
             password: data.get('password')
         };
-
-       axios.post('http://localhost:8080/login', userLogin,{headers: {'Content-Type': 'application/json'}})
+        
+       axios.post(url+'login', userLogin,{headers: {'Content-Type': 'application/json'}})
        .then(response => { 
             console.log(response)
+            
             // Storing the token in session storage
             sessionStorage.setItem('token', response.data["token"]);
 
@@ -109,7 +112,7 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/signup" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
