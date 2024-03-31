@@ -17,4 +17,4 @@ jobs:
       with:
         node-version: "14"
     - run: npm install
-    - run: npm run test
+    - run: npm run testg
