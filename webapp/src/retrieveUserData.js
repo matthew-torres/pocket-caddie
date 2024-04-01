@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import instance from './axios_instance';
 
 const useUserRowsData = () => {
 
-  const url = import.meta.env.VITE_API_URL 
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(url+'api/user', {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-        },
-      })
+   instance.get("api/user")
       .then(response => {
         if (response && response.data && response.data.user) {
           setUser(response.data.user);

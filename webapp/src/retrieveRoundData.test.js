@@ -6,7 +6,7 @@ import { waitFor, renderHook} from '@testing-library/react';
 
 
 
-describe('useRowsData hook',  () => {
+describe('Round: useRowsData hook',  () => {
   it('fetches rows data successfully', async () => {
     // Mock API response
     const mockResponse = {
@@ -30,9 +30,8 @@ describe('useRowsData hook',  () => {
     ]))
   });
 
-describe('useRowsData unsuccessful query', () => {
+describe('Round: useRowsData unsuccessful query', () => {
   it('returns empty array on unsucessful query', async () => {
-    const url = process.env.VITE_API_URL;
     const mockAxiosError = new MockAdapter(instance);
     mockAxiosError.onGet("api/user/rounds").reply(404); // Simulate a 404 error
 

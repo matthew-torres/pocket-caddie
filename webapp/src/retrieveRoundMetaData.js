@@ -1,18 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import instance from './axios_instance';
 
 const useRowsData = (rid) => {
 
-  const url = import.meta.env.VITE_API_URL
   const [rows, setRows] = useState([]);
-
   useEffect(() => {
-    axios
-      .get(url+'api/round/' + rid + '/holes', {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-        },
-      })
+    instance.get('api/round/' + rid + '/holes')
       .then(response => {
         if (response.data.holes.length > 0) {
         const mappedRows = response.data.holes.map(hole => ({

@@ -4,7 +4,7 @@ import useRowsData from './retrieveBagData';
 import instance from './axios_instance';
 
 
-describe('useRowsData hook',  () => {
+describe('Bag Data: useRowsData hook',  () => {
   it('fetches rows data successfully', async () => {
     const mockResponse = {
         clubs: [
@@ -28,7 +28,7 @@ describe('useRowsData hook',  () => {
     );
   });
 
-describe('useRowsData unsuccessful query', () => {
+describe('Bag Data: useRowsData unsuccessful query', () => {
   it('returns empty array on unsucessful query', async () => {
     const mockAxiosError = new MockAdapter(instance);
     mockAxiosError.onGet("api/user/clubs").reply(404); // Simulate a 404 error

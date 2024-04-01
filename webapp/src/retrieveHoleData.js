@@ -48,7 +48,6 @@ const useRowsDataHoles = () => {
   parCounts["4"] = parCounts["4"] / par4count;
   parCounts["5"] = parCounts["5"] / par5count;
 
-  console.log(parCounts)
   return parCounts;
 
 };

@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import useRowsDataHoles from './retrieveHoleData';
 import instance from './axios_instance';
 
-describe('useRowsDataHoles hook', () => {
+describe('Hole Data: useRowsDataHoles hook', () => {
     it('fetches rows data sucessfully', async () => {
         const mockResponse = {
             holes: [
