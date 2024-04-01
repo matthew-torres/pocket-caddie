@@ -1,10 +1,6 @@
 import React from "react";
 import renderer from 'react-test-renderer';
-import { Renderer } from "@testing-library/react-hooks";
 import MyBag from '../MyBag/MyBag';
-import MockAdapter from 'axios-mock-adapter';
-import instance from "../../axios_instance";
-import { render, waitFor } from "@testing-library/react";
 
 
 jest.mock('../../retrieveBagData', () => {
