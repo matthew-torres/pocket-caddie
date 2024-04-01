@@ -22,7 +22,6 @@ import { globalTheme } from '../../theme';
 export default function Login() {
     
       const url = import.meta.env.VITE_API_URL
-      console.log(url)
       const [failure, setFailure] = useState(false);
       const theme = useTheme()
       const handleSubmit = (event) => {
